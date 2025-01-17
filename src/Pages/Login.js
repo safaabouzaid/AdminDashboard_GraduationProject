@@ -50,7 +50,7 @@ export const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit" className="btn-submit">
-            {loading ? "Loading..." : "Log In as company"}
+            {loading ? "Loading..." : "Log In as Admin"}
           </button>
           {error && <div className="error-message">{error}</div>}
         </form>
