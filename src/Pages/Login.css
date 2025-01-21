@@ -82,13 +82,13 @@ body::after {
 .login-image {
   flex: 1;
   min-width: 300px;
-  background: url("./login2.jpg") center/cover no-repeat;
-  /**background-size: 80%;  */
+  background: url("") center/cover no-repeat;
+  background-size: 80%;
   background-color: #eaeaff;
   position: relative;
   background-size: cover;
   background-position: 40% center; 
-  /*opacity: 0.8;*/
+  opacity: 0.8;
 }
 
 .login-form {
