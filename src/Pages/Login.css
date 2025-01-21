@@ -86,9 +86,8 @@ body::after {
   /**background-size: 80%;  */
   background-color: #eaeaff;
   position: relative;
-  background-size:contain;
-/*  background-size: cover;*/
-  /*background-position: 40% center; */
+  background-size: cover;
+  background-position: 40% center; 
   /*opacity: 0.8;*/
 }
 
