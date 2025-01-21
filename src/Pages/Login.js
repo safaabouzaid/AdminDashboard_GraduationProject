@@ -1,6 +1,5 @@
 ////mui
 
-
 //Icons
 import { FaRegUser } from "react-icons/fa6";
 import { TbLockPassword } from "react-icons/tb";
@@ -75,7 +74,9 @@ export const Login = () => {
           {error && <div className="error-message">{error}</div>}
         </form>
         <div style={{ textAlign: "end" }} className="additional-links">
-          <button>Forgot Password?</button>
+          <button style={{ color: "#4e54c8", textDecoration: "none" }}>
+            Forgot Password?
+          </button>
         </div>
         <Link
           to="/Privacy"
