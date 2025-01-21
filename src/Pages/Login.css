@@ -82,7 +82,7 @@ body::after {
 .login-image {
   flex: 1;
   min-width: 300px;
-  background: url("./login3.png") center/cover no-repeat;
+  background: url("./login2.jpg") center/cover no-repeat;
   /**background-size: 80%;  */
   background-color: #eaeaff;
   position: relative;
