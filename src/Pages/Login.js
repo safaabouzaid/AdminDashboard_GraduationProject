@@ -75,7 +75,7 @@ export const Login = () => {
           {error && <div className="error-message">{error}</div>}
         </form>
         <div style={{ textAlign: "end" }} className="additional-links">
-          <a href="">Forgot Password?</a>
+          <button>Forgot Password?</button>
         </div>
         <Link
           to="/Privacy"
