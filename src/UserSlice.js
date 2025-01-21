@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk(
     console.log("User credentials:", userCredential); 
 
     const request = await axios.post(
-      `http://127.0.0.1:8000/account/login/`,
+      `${process.env.REACT_APP_API_URL}/account/login/`,
       userCredential,
       {
         headers: {
