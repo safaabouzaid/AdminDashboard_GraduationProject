@@ -1,8 +1,16 @@
+////mui
+
+
+//Icons
+import { FaRegUser } from "react-icons/fa6";
+import { TbLockPassword } from "react-icons/tb";
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../UserSlice";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [username, setEmail] = useState("");
@@ -29,34 +37,60 @@ export const Login = () => {
       <div className="login-image"></div>
       <div className="login-form">
         <h2 className="form-title">Welcome to Forsa-Tech</h2>
+        <div className="line"></div>
+        <h5 style={{ textAlign: "start", color: "#333333dc" }}>
+          Login as an admin user
+        </h5>
         <p style={{ textAlign: "center" }} className="form-subtitle">
           {" "}
         </p>
         <form className="custom-form" onSubmit={handleLoginEvent}>
-          <label style={{textAlign: "start" ,fontSize:"110%" }} >Email</label>
-          <input
-            type="email"
-            required
-            className="form-control"
-            value={username}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label style={{textAlign: "start" ,fontSize:"100%"}}>Password</label>
-          <input
-            type="password"
-            required
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="input-container">
+            <FaRegUser className="input-icon" />
+            <input
+              type="email"
+              required
+              className="form-control custom-placeholder"
+              placeholder="admin@gmail.com"
+              value={username}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="input-container">
+            <TbLockPassword className="input-icon" />
+            <input
+              type="password"
+              required
+              className="form-control custom-placeholder"
+              placeholder="* * * * *  * * * *"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
           <button type="submit" className="btn-submit">
-            {loading ? "Loading..." : "Log In as Admin"}
+            {loading ? "Loading..." : "L O G I N "}
           </button>
           {error && <div className="error-message">{error}</div>}
         </form>
-        <div   style={{textAlign: "end"}} className="additional-links">
-          <a href="#">Forgot Password?</a>
+        <div style={{ textAlign: "end" }} className="additional-links">
+          <a href="">Forgot Password?</a>
         </div>
+        <Link
+          to="/Privacy"
+          style={{
+            alignItems: "center",
+            alignContent: "center",
+            paddingTop: "15%",
+            color: "#888",
+            textDecoration: "none",
+          }}
+          className=""
+        >
+          {" "}
+          Privacy Policy
+        </Link>
       </div>
     </div>
   );

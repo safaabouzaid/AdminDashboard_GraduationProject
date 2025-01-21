@@ -1,159 +1,206 @@
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(to right, #f5f5fa, #eaeefb);
-    position: relative;
-    overflow: hidden;
-  }
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #f5f5fa, #eaeefb);
+  position: relative;
+  overflow: hidden;
+}
+
+
+/*
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(78, 84, 200, 0.2); 
+  z-index: 0; 
+}
+
+body::before {
+  width: 350px;
+  height: 350px;
+  top: -50px;
+  left: -50px;
+}
+
+body::after {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  right: -100px;
+}
+  */
+
+
+.login-container {
+  display: flex;
+  width: 900px;
+  height: 630px;
+  max-height: 1000px;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 10px 10px 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-icon {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  left: 90%; 
+  transform: translateY(-100%);
+  font-size: 20px;
+  color: #888;
   
-  body::before,
-  body::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(78, 84, 200, 0.2); 
-    z-index: 0; 
-  }
-  
-  body::before {
-    width: 350px;
-    height: 350px;
-    top: -50px;
-    left: -50px;
-  }
-  
-  body::after {
-    width: 400px;
-    height: 400px;
-    bottom: -100px;
-    right: -100px;
-  }
-  
+
+}
+.custom-placeholder::placeholder {
+  color: rgba(11, 12, 11, 0.185)!important ; 
+}
+
+
+.login-image {
+  flex: 1;
+  min-width: 300px;
+  background: url("./login3.png") center/cover no-repeat;
+  /**background-size: 80%;  */
+  background-color: #eaeaff;
+  position: relative;
+  background-size:contain;
+/*  background-size: cover;*/
+  /*background-position: 40% center; */
+  /*opacity: 0.8;*/
+}
+
+.login-form {
+  flex: 1.2;
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333333dc;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.custom-form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  padding: 1rem;
+  padding-left: 40px;
+  border-radius: 30px !important;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+  border-color: #4e54c8;
+  box-shadow: 0 0 8px rgba(78, 84, 200, 0.5);
+  outline: none;
+}
+
+.btn-submit {
+  background-color: #4e54c8;
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-submit:hover {
+  background-color: #6c63ff;
+}
+
+.additional-links {
+  margin-top: 1rem;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.additional-links a {
+  color: #4e54c8;
+  text-decoration: none;
+}
+
+.additional-links a:hover {
+  text-decoration: underline;
+}
+.line {
+  width: 45px; 
+  height: 4px;  
+  border-radius: 5px;
+  background-color: #4e54c8; 
+  margin-bottom: 8px;  
+}
+@media (max-width: 768px) {
   .login-container {
-    display: flex;
-    width: 900px;
-    height: 600px;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
   }
-  
-  .login-image {
-    flex: 1;
-    background: url("https://cdni.iconscout.com/illustration/premium/thumb/login-illustration-download-in-svg-png-gif-file-formats--account-password-security-lock-design-development-illustrations-2757111.png?f=webp") center/contain no-repeat;
-    background-size: 75%;  
-    background-color: #eaeaff;
-    position: relative;
-  }
-  
+
   .login-form {
-    flex: 1.2;
-    padding: 4rem 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 2rem;
   }
-  
+
+  .login-image {
+    height: 250px;
+  }
+
   .form-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 1.5rem;
-    text-align: left;
+    font-size: 2rem;
   }
-  
+
   .form-subtitle {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 2.5rem;
-    text-align: left;
-  }
-  
-  .custom-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    font-size: 1rem;
-    color: #444;
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-control {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .form-control:focus {
-    border-color: #4e54c8;
-    box-shadow: 0 0 5px rgba(78, 84, 200, 0.4);
-  }
-  
-  .btn-submit {
-    background-color: #4e54c8;
-    color: #fff;
-    padding: 1rem;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .btn-submit:hover {
-    background-color: #6c63ff;
-  }
-  
-  .additional-links {
-    margin-top: 1rem;
-    text-align: left;
     font-size: 1rem;
   }
-  
-  .additional-links a {
-    color: #4e54c8;
-    text-decoration: none;
-  }
-  
-  .additional-links a:hover {
-    text-decoration: underline;
-  }
-  
-  @media (max-width: 768px) {
-    .login-container {
-      flex-direction: column;
-      width: 100%;
-      height: auto;
-    }
-  
-    .login-form {
-      padding: 2rem;
-    }
-  
-    .login-image {
-      height: 250px;
-    }
-  
-    .form-title {
-      font-size: 2rem;
-    }
-  
-    .form-subtitle {
-      font-size: 1rem;
-    }
-  }
-  
+}
