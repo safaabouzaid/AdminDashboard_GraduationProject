@@ -1,4 +1,7 @@
 body {
+
+
+
   margin: 0;
   font-family: "Poppins", sans-serif;
   display: flex;
@@ -8,8 +11,10 @@ body {
   background: linear-gradient(to right, #f5f5fa, #eaeefb);
   position: relative;
   overflow: hidden;
-}
 
+
+
+}
 
 /*
 body::before,
@@ -26,7 +31,9 @@ body::before {
   height: 350px;
   top: -50px;
   left: -50px;
+
 }
+
 
 body::after {
   width: 400px;
@@ -38,6 +45,7 @@ body::after {
 
 
 .login-container {
+  
   display: flex;
   width: 900px;
   height: 630px;
@@ -174,11 +182,11 @@ label {
   text-decoration: underline;
 }
 .line {
-  width: 45px; 
+  width: 43px; 
   height: 4px;  
   border-radius: 5px;
   background-color: #4e54c8; 
-  margin-bottom: 8px;  
+  margin-bottom: 1px;  
 }
 @media (max-width: 768px) {
   .login-container {

@@ -67,7 +67,7 @@ export const Login = () => {
               type="password"
               required
               className="form-control custom-placeholder"
-              placeholder="* * * * *  * * * *"
+              placeholder="* * * * * * * * *"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -79,7 +79,16 @@ export const Login = () => {
           {error && <div className="error-message">{error}</div>}
         </form>
         <div style={{ textAlign: "end" }} className="additional-links">
-          <button style={{ color: "#4e54c8", textDecoration: "none" }}>
+          <button
+            style={{
+              color: "#4e54c8",
+              textDecoration: "none",
+              backgroundColor: "transparent",
+              border: "none",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
             Forgot Password?
           </button>
         </div>
@@ -88,7 +97,7 @@ export const Login = () => {
           style={{
             alignItems: "center",
             alignContent: "center",
-            paddingTop: "15%",
+            paddingTop: "20%",
             color: "#888",
             textDecoration: "none",
           }}
