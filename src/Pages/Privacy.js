@@ -13,6 +13,7 @@ export const Privacy = () => {
   const theme = useTheme();
   return (
     <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+      
       <AppBar
         position="fixed"
         sx={{
@@ -111,8 +112,11 @@ export const Privacy = () => {
               without permission will have consequences.
             </li>
           </ul>
+
+          
         </Box>
       </Box>
     </Box>
   );
+
 };

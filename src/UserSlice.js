@@ -3,10 +3,10 @@ import axios from "axios";
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userCredential) => {
-    console.log("User credentials:", userCredential); 
+    console.log("User credentials:", userCredential);
 
     const request = await axios.post(
-      `${process.env.REACT_APP_API_URL}/account/login/`,
+      "http://localhost:8000/api/admin/login/",
       userCredential,
       {
         headers: {
@@ -14,7 +14,7 @@ export const loginUser = createAsyncThunk(
         },
       }
     );
-    console.log("Response data:", request.data); 
+    console.log("Response data:", request.data);
 
     const response = await request.data;
     localStorage.setItem("user", JSON.stringify(response));
@@ -29,7 +29,6 @@ const userSlice = createSlice({
     error: null,
   },
 
-  
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
