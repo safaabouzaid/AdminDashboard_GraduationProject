@@ -96,7 +96,7 @@ body::after {
   position: relative;
   background-size: cover;
   background-position: 40% center; 
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .login-form {
