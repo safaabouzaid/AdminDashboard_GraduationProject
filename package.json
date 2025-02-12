@@ -5,8 +5,11 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.0",
-    "@mui/material": "^6.4.0",
+    "@iconscout/react-unicons": "^2.2.4",
+    "@mui/icons-material": "^6.4.3",
+    "@mui/material": "^6.4.3",
+    "@mui/styled-engine-sc": "^6.4.3",
+    "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^2.5.0",
     "@tailwindcss/cli": "^4.0.3",
     "@tailwindcss/postcss": "^4.0.3",
@@ -17,6 +20,8 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
+    "react-text-gradients": "^1.0.2",
+    "styled-components": "^6.1.15",
     "web-vitals": "^4.2.4"
   },
   "scripts": {

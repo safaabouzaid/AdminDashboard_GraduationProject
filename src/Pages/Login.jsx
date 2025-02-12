@@ -28,7 +28,7 @@ export const Login = () => {
       if (result.payload) {
         setEmail("");
         setPassword("");
-        navigate("/");
+        navigate("/dashboard");
       }
     });
   };
@@ -82,7 +82,7 @@ export const Login = () => {
         <div style={{ textAlign: "end" }} className="additional-links">
           <button
             style={{
-              color: "#4e54c8",
+              color: "#4A15F4",
               textDecoration: "none",
               backgroundColor: "transparent",
               border: "none",
