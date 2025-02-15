@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import './Dashboard.css';
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../components/header";
+import MainDash from "../components/MainDash/MainDash";
 
 const Dashboard = () => {
   useEffect(() => {
@@ -17,6 +18,7 @@ const Dashboard = () => {
       <Header />
       <div className="AppGlass">
         <Sidebar/>
+        <MainDash/>
       </div>
     </div>
   );
