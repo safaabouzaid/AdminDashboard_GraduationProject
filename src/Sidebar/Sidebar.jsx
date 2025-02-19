@@ -4,7 +4,7 @@ import { FiHome } from "react-icons/fi";
 import { FaBuildingUser } from "react-icons/fa6";
 import { MdOutlinePolicy } from "react-icons/md";
 import { AiOutlineLogin, AiOutlineComment } from "react-icons/ai";
-import Logo from '../assets/images/logoForsa.PNG';
+//import Logo from '../assets/images/logoForsa.PNG';
 
 
 
@@ -22,9 +22,10 @@ const Sidebar = () => {
   return (
     <div className="Sidebar">
       <div className="logo">
-        <img src={Logo} alt="" />
-        <span>FORSA<span></span><span>TECH</span></span>
+      <img src="/images/logoForsa.PNG" alt="Forsa Tech Logo" />
+      <span>FORSA<span></span><span>TECH</span></span>
       </div>
+      
 
       <div className="menu">
         {menuItems.map((item, index) => (

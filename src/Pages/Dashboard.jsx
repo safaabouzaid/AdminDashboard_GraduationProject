@@ -14,10 +14,12 @@ const Dashboard = () => {
   }, []);
 
   return (
+    
     <div className="dashboard-container">
       <Header />
       <div className="AppGlass">
         <Sidebar/>
+        
         <MainDash/>
       </div>
     </div>

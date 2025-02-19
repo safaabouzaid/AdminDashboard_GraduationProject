@@ -8,7 +8,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../UserSlice";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
 import { Link } from "react-router-dom";
 import loginImage from "../assets/images/login2.jpg";
 import "./Login.css";
@@ -34,6 +33,9 @@ export const Login = () => {
   };
 
   return (
+    <> 
+  
+  
     <div className="login-container">
       
       <div
@@ -108,6 +110,6 @@ export const Login = () => {
           Privacy Policy
         </Link>
       </div>
-    </div>
+    </div></>
   );
 };

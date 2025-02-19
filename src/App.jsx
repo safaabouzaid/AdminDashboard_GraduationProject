@@ -28,6 +28,11 @@ const theme = createTheme({
 
 function App() {
   return (
+    <>
+  <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
+
     <div className="App">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
@@ -39,7 +44,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
-    </div>
+    </div> </>
   );
 }
 
