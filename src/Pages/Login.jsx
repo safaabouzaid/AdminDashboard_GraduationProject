@@ -6,7 +6,7 @@ import { TbLockPassword } from "react-icons/tb";
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../UserSlice";
+import { loginUser } from "../redux/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import loginImage from "../assets/images/login2.jpg";
@@ -33,8 +33,8 @@ export const Login = () => {
   };
 
   return (
-    <> 
-  
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+
   
     <div className="login-container">
       
@@ -95,6 +95,7 @@ export const Login = () => {
             Forgot Password?
           </button>
         </div>
+        <div className="flex flex-col items-center pt-0" >
         <Link
           to="/Privacy"
           style={{
@@ -103,13 +104,13 @@ export const Login = () => {
             paddingTop: "20%",
             color: "#888",
             textDecoration: "none",
-          }}
-          className=""
+          }} className="text-gray-500 mt-4"
         >
           {" "}
           Privacy Policy
         </Link>
+        </div>
       </div>
-    </div></>
+    </div></div>
   );
 };

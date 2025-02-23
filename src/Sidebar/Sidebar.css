@@ -1,3 +1,37 @@
+
+.sidebar-dark {
+    background-color: #101828; 
+  }
+  
+  .sidebar-dark .sidebar-item {
+    color: white;
+  }
+  
+  .sidebar-dark .sidebar-item-active {
+    color: white;
+  }
+  
+  .sidebar-dark .sidebar-icon {
+    color: #f7fafc; 
+  }
+  
+  .sidebar-light {
+    background-color: #ffffff; 
+  }
+  
+  .sidebar-light .sidebar-item {
+    color: #1e2939; 
+  }
+  
+  .sidebar-light .sidebar-item-active {
+    color:white; 
+  }
+  
+  .sidebar-light .sidebar-icon {
+    color: #1e2939; 
+  }
+  
+
 .Sidebar {
     display: flex;
     flex-direction: column;
@@ -5,6 +39,7 @@
     padding-top: 3rem; 
     transition: all 300ms ease;
     align-items:flex-start;
+    
 }
 
 .logo {
@@ -34,7 +69,6 @@
 /*menu*/
 
 .menu{
-    margin-top: 30%;
     display: flex; 
     flex-direction:column;  
     align-content: center;
@@ -59,12 +93,12 @@
     cursor: pointer;
 }
 .active{
-    background:  rgba(21, 1, 48, 0.61) ;
+    background:   #2922b36e  ;
     margin-left: 0;
 }
 .active::before{
     content: '';
     width: 8px;
     height: 100%;
-    background: rgba(21, 1, 48, 0.8) ;
+    background:  #2a22b3  ;
 }

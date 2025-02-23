@@ -49,11 +49,12 @@ body::after {
   */
 
 
+  
 .login-container {
   
   display: flex;
-  width: 900px;
-  height: 630px;
+  width: 65rem;
+  height: 45rem;
   max-height: 1000px;
   flex-wrap: wrap;
   background-color: #fff;
@@ -61,6 +62,8 @@ body::after {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
+  
+  
 }
 
 .input-container {

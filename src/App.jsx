@@ -19,23 +19,13 @@ const theme = createTheme({
       default: "#f9fafb",
     },
   },
-  
-  
   typography: {
     fontFamily: '"Roboto", "Arial", sans-serif',
   },
 });
-
 function App() {
   return (
-    <>
-    <h1 className="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-
-
-    <div className="App">
-      <ThemeProvider theme={theme}>
+    <div>
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Login />} />
@@ -44,8 +34,7 @@ function App() {
             <Route exact path="/dashboard" element={<Dashboard />} />
           </Routes>
         </BrowserRouter>
-      </ThemeProvider>
-    </div> </>
+    </div>
   );
 }
 

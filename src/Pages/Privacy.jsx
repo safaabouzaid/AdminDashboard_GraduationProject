@@ -16,16 +16,12 @@ export const Privacy = () => {
       
       <AppBar
         position="fixed"
-        sx={{
-          backgroundColor: theme.palette.appBar.main,
-          color: theme.palette.appBar.contrastText,
-        }}
+        sx={{background: `linear-gradient(to left, #4A15F4, #2c2f8d, #6B1A6B)`}}      
       >
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
           >
@@ -42,13 +38,7 @@ export const Privacy = () => {
             component={Link}
             to="/login"
             color="inherit"
-            sx={{
-              backgroundColor: theme.palette.button.main,
-              color: theme.palette.button.contrastText,
-              "&:hover": {
-                backgroundColor: theme.palette.button.main + "CC",
-              },
-            }}
+            
           >
             Login
           </Button>
