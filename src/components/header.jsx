@@ -7,13 +7,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { toggleTheme } from '../redux/thems/themeSlice';
 import "./Header.css"
 import { FiSun, FiMoon } from "react-icons/fi";
-
-
-
-
 const Header = () => {
-
-
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);  
 
@@ -28,11 +22,10 @@ return (
     -Tech
   </span>
 </Link>
-
         <form className="rounded-2xl ring-2  p-1">
       
         <InputBase
-  placeholder={theme === "dark" ? "Search ..." : "Search ..."}
+  placeholder={theme === "dark" ? "Search " : "Search"}
   className={`hidden lg:inline w-80 h-7 rounded-lg px-3 py-1 
     ${theme === "dark" ? "bg-gray-800 text-blue-500/50" : "bg-white text-gray-900"}`}
   color="gray"
@@ -43,11 +36,7 @@ return (
     }
   }}
 />
-
         <SearchIcon className="lg:hidden "  pill="true"/>
-      
-
-
     </form>    
 
         <Button
@@ -62,5 +51,4 @@ return (
     </div>
   );
 };
-
 export default Header;
