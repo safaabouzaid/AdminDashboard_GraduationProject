@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../components/Header";
 import MainDash from "../components/MainDash/MainDash";
-import DashCompany from "../DashCompany";
+import DashCompany from "./DashCompany";
 import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {

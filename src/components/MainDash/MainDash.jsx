@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Cards from "../Cards/Cards";
-import DashCompany from "../../DashCompany";
-
+import DashCompany from "../../Pages/DashCompany";
+import AddCompany from "../../Pages/AddCompany";
 const MainDash = ({ tab }) => {
   const { theme } = useSelector((state) => state.theme);
 
@@ -13,6 +13,7 @@ const MainDash = ({ tab }) => {
       } w-full shadow-2xl  shadow-indigo-300  p-8 flex flex-col`}
     >
       {tab === "companies" && <DashCompany />}
+      {tab === "addcompany" && <AddCompany />}
       {tab === "dashboard" && <Cards />}
       <h1 className="text-2xl font-bold"></h1>
     </div>
