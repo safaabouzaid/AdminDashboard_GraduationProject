@@ -14,30 +14,39 @@ export default function DashCompany() {
       username: "ALsham University",
       email: "info@aspu.edu.sy",
       createdAt: "2025-02-10",
+      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
     },
     {
       id: 2,
       username: "Forsa-Tech",
       email: "forsa-tech@gmail.com",
       createdAt: "2025-01-15",
+      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
+
     },
     {
       id: 3,
       username: "ALsham University",
       email: "info@aspu.edu.sy",
       createdAt: "2025-02-10",
+      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
+
     },
     {
       id: 4,
       username: "ALsham University",
       email: "info@aspu.edu.sy",
       createdAt: "2025-02-10",
+      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
+
     },
     {
       id: 5,
       username: "ALsham University",
       email: "info@aspu.edu.sy",
       createdAt: "2025-02-10",
+      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
+
     },
   ]);
 
