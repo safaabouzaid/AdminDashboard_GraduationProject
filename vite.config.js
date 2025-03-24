@@ -8,5 +8,12 @@ export default defineConfig({
     rollupOptions: {
       external: ["react-icons"]
     }
-  }
+  },
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
+  },
 });
+
+
