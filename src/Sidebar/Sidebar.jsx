@@ -33,11 +33,16 @@ const Sidebar = () => {
   ];
 
   const handleTabClick = (tabName) => {
-    navigate(`?tab=${tabName}`);
+    // Navigate without reloading the entire page
+    navigate(`/dashboard?tab=${tabName}`);
+    setTab(tabName); // Update the state for the selected tab
   };
+  
+
 
   return (
-    <div className={`${theme === "dark" ? "sidebar-dark" : "sidebar-light"} w-100 min-h-screen p-5 font-semibold shadow-lg`}>
+<div className={`w-1/6 min-h-screen p-5  ml-5 mr-5 shadow-lg rounded-xl transition-all 
+      ${theme === "dark" ? "bg-gradient-to-br from-gray-950 via-gray-800 to-gray-900 text-white" : "bg-gradient-to-r from-purple-100 to-white text-black"}`}>
       <div className="space-y-4">
         {menuItems.map((item, index) => (
           <div

@@ -55,7 +55,7 @@ export const Login = () => {
           <div className="input-container">
             <FaRegUser className="input-icon" />
             <input
-              type="email"
+              type=""
               required
               className="form-control custom-placeholder"
               placeholder="admin@gmail.com"

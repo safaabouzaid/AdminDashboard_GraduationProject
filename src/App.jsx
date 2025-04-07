@@ -4,6 +4,8 @@ import { Login } from "./Pages/Login";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Privacy } from "./Pages/Privacy";
 import Dashboard from './Pages/Dashboard';
+import MainDash from "./components/MainDash/MainDash";
+import DashboardLayout from "./components/DashboardLayout";
 const theme = createTheme({
   palette: {
     secondary: "",
@@ -25,16 +27,19 @@ const theme = createTheme({
 });
 function App() {
   return (
-    <div>
-        <BrowserRouter>
-          <Routes>
-            <Route exact path="/" element={<Login />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/privacy" element={<Privacy />} />
-            <Route exact path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/privacy" element={<Privacy />} />
+
+        <Route path="/dashboard" element={
+          <DashboardLayout>
+            <MainDash />
+          </DashboardLayout>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

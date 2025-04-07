@@ -1,54 +1,58 @@
-import { Button, Navbar, TextInput } from "flowbite-react";
-import { BsMoon } from "react-icons/bs";
+import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from '../redux/thems/themeSlice';
-import "./Header.css"
 import { FiSun, FiMoon } from "react-icons/fi";
+
 const Header = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);  
 
-return (
-<div className={` pt-2 ${theme === "dark" ? "text-white bg-gray-900"  : "text-gray-800 bg-white "}pt-2 h-60 flex items-center justify-between ` }>
-<Link to="/" className="ml-9 flex items-center justify-center text-2xl font-extrabold">
-  <span className="px- py-2 rounded-xl  backdrop-blur-md bg-gradient-to-r from-[#4A15F4] to-[#6B1A6B] 
-    bg-clip-text text-transparent">
-    Forsa
-  </span>
-  <span className={`ml-2 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-    -Tech
-  </span>
-</Link>
-        <form className="rounded-2xl ring-2  p-1">
-      
-        <InputBase
-  placeholder={theme === "dark" ? "Search " : "Search"}
-  className={`hidden lg:inline w-80 h-7 rounded-lg px-3 py-1 
-    ${theme === "dark" ? "bg-gray-800 text-blue-500/50" : "bg-white text-gray-900"}`}
-  color="gray"
-  pill="true"
-  inputProps={{
-    style: {
-      color: theme === "dark" ? "white" : "gray", 
-    }
-  }}
-/>
-        <SearchIcon className="lg:hidden "  pill="true"/>
-    </form>    
-
-        <Button
-        className= "w-15 h-15 flex bg-gradient-to-r from-blue-500 to-purple-500 items-center justify-center !rounded-3xl mr-8 hover:bg-gray-200 dark:hover:bg-gray-600  "
+  return (
+    <header className={`h-50 flex items-center justify-between px-6 transition-all shadow-sm rounded-xl
+      ${theme === "dark" ? "bg-gradient-to-br from-gray-950 via-gray-800 to-gray-900 text-white" : "bg-gradient-to-r from-white to-purple-100 text-gray-900"}`}>
+    
+      {/* Logo */}
+      <Link to="/" className="text-2xl font-bold tracking-tight flex items-center space-x-1">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600 font-extrabold">
+          Forsa
+        </span>
+        <span className={`${theme === "dark" ? "text-white" : "text-gray-800"}`}>-Tech</span>
+      </Link>
+    
+      {/* Search  */}
+      <div className="pb-2 pt-2" >
+      <form className={`rounded-xl ring-2 px-3 py-1  transition-all ${
+        theme === 'dark' ? 'bg-gray-800 ring-gray-700' : 'bg-white ring-gray-300'
+      }`}>
+        <div className="flex items-center space-x-2">
+          <SearchIcon className="text-gray-400" />
+          <InputBase
+            placeholder="Search"
+            className="w-72"
+            inputProps={{ style: { color: theme === "dark" ? "white" : "black" } }}
+          />
+        </div>
+      </form>
+      </div>
+    
+      {/* Theme toggle */}
+      <button
         onClick={() => dispatch(toggleTheme())}
-        pill
+        className="w-10 h-10 flex items-center justify-center rounded-full shadow-sm 
+        bg-gradient-to-br from-indigo-500 to-purple-600 hover:opacity-90 transition-all"
       >
-        {theme === "dark" ? 
-          <FiSun className="text-emerald-50 text-2xl" /> :      
-          <FiMoon className="text-emerald-50 text-2xl" />         
-        }      </Button>
-    </div>
+        {theme === "dark" ? (
+          <FiSun className="text-yellow-300 text-xl" />
+        ) : (
+          <FiMoon className="text-white text-xl" />
+        )}
+      </button>
+    </header>
+    
   );
 };
+
 export default Header;

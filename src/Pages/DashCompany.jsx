@@ -1,148 +1,362 @@
-import { Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@mui/material';
-import { useState } from 'react';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { FaCheck, FaTimes } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import {
+  Modal,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Button,
+  TextField,
+} from "@mui/material";
+import { useState } from "react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function DashCompany() {
   const { theme } = useSelector((state) => state.theme);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   const [users, setUsers] = useState([
     {
       id: 1,
       username: "ALsham University",
       email: "info@aspu.edu.sy",
       createdAt: "2025-02-10",
-      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
+      employees: 130,
+      profilePicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s",
     },
     {
       id: 2,
       username: "Forsa-Tech",
       email: "forsa-tech@gmail.com",
       createdAt: "2025-01-15",
-      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
-
+      employees: 25,
+      profilePicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s",
+    
     },
     {
       id: 3,
-      username: "ALsham University",
-      email: "info@aspu.edu.sy",
-      createdAt: "2025-02-10",
-      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
-
+      username: "Forsa-Tech",
+      email: "forsa-tech@gmail.com",
+      createdAt: "2025-01-15",
+      employees: 25,
+      profilePicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s",
+    
     },
     {
       id: 4,
-      username: "ALsham University",
-      email: "info@aspu.edu.sy",
-      createdAt: "2025-02-10",
-      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
-
+      username: "Forsa-Tech",
+      email: "forsa-tech@gmail.com",
+      createdAt: "2025-01-15",
+      employees: 25,
+      profilePicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s",
+    
     },
     {
       id: 5,
-      username: "ALsham University",
-      email: "info@aspu.edu.sy",
-      createdAt: "2025-02-10",
-      profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s"
-
+      username: "Forsa-Tech",
+      email: "forsa-tech@gmail.com",
+      createdAt: "2025-01-15",
+      employees: 25,
+      profilePicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s",
+    
+    },
+    {
+      id: 6,
+      username: "Forsa-Tech",
+      email: "forsa-tech@gmail.com",
+      createdAt: "2025-01-15",
+      employees: 25,
+      profilePicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpve8QCCPBiCCxagjx5ei3qUSB_7UyDEepfg&s",
+    
     },
   ]);
 
-  const [showMore, setShowMore] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
   const [showModal, setShowModal] = useState(false);
-  const [userIdToDelete, setUserIdToDelete] = useState('');
+  const [userIdToDelete, setUserIdToDelete] = useState("");
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editedCompany, setEditedCompany] = useState(null);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleConfirmDelete = () => {
-    setUsers(prevUsers => prevUsers.filter(user => user.id !== userIdToDelete));
-    setShowModal(false); 
+    setUsers((prev) => prev.filter((u) => u.id !== userIdToDelete));
+    setShowModal(false);
+  };
+
+  const handleEditClick = (company) => {
+    setEditedCompany({ ...company });
+    setEditModalOpen(true);
+  };
+
+  const handleEditSave = () => {
+    setUsers((prev) =>
+      prev.map((user) => (user.id === editedCompany.id ? editedCompany : user))
+    );
+    setEditModalOpen(false);
   };
 
   return (
-    <><div className="mb-0 pt-0 text-end ">
-    <Button
-  onClick={() => navigate("/dashboard?tab=addcompany")}     
-  className="bg-gradient-to-r from-emerald-700 to-emerald-700 rounded-full text-white shadow-md "
-  variant="contained"
->
-  Add Company
-</Button></div>
-    <div className={`w-full shadow-inner shadow-gray-700 md:mx-auto ${theme === "dark" ? "text-white bg-gray-800" : "text-gray-800 bg-white"} w-full m-4 shadow-inner rounded-2xl shadow-blue-200 md:mx-auto p-3`}>
-    
-      
+    <>
+      <div className="text-end mb-4">
+        <Button
+          onClick={() => navigate("/dashboard?tab=addcompany")}
+          sx={{
+            backgroundColor: "oklch(0.723 0.219 149.579)",
+            "&:hover": { backgroundColor: "oklch(0.627 0.194 149.214)" },
+            color: "white",
+            fontWeight: "bold",
+            borderRadius: "50px",
+            textTransform: "none",
+            px: 3,
+            py: 1,
+            fontSize: "1rem",
+          }}
+        >
+          Add Company
+        </Button>
+      </div>
 
-      {users.length > 0 ? (
-        <>
-          <TableContainer>
-            <Table className={`${theme === "dark" ? "text-white bg-gray-800" : "text-gray-800 bg-white"}`}>
+      <div className={`rounded-xl shadow-md p-6 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}>
+        {users.length > 0 ? (
+          <>
+            <TableContainer
+              component="div"
+              sx={{
+                maxHeight: 400,
+                overflowY: "auto",
+                scrollbarWidth: "none",
+                "&::-webkit-scrollbar": { display: "none" },
+              }}
+            >
+              <Table>
               <TableHead>
-                <TableRow>
-                  <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>Date created</TableCell>
-                  <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>Company image</TableCell>
-                  <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>Company name</TableCell>
-                  <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>Email</TableCell>
-                  <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>Delete</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
-                    <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>
-                      <img
-                        src={user.profilePicture || 'default-image.jpg'}
-                        alt={user.username}
-                        className="w-10 h-10 object-cover bg-gray-500 rounded-full"
-                      />
+  <TableRow>
+    <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>Date</TableCell>
+    <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>Image</TableCell>
+    <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>Name</TableCell>
+    <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>Email</TableCell>
+    <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>Employees</TableCell>
+    <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>
+                      <div className=" ml-9">Actions</div>
                     </TableCell>
-                    <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>{user.username}</TableCell>
-                    <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>{user.email}</TableCell>
-                    <TableCell sx={{ color: theme === "dark" ? "white" : "black" }}>
-                      <span
-                        onClick={() => {
-                          setUserIdToDelete(user.id);
-                          setShowModal(true);
-                        }}
-                        className="font-medium text-red-700 hover:underline cursor-pointer"
-                      >
-                        Delete
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+  </TableRow>
+</TableHead>
 
-          {showMore && (
-            <button onClick={() => console.log("Load more clicked")} className="w-full text-teal-500 self-center text-sm py-7">
-              Show more
-            </button>
-          )}
-        </>
-      ) : (
-        <p className="text-gray-500 dark:text-gray-400">You have no companies yet!</p>
-      )}
+<TableBody>
+  {currentItems.map((user) => (
+    <TableRow
+      key={user.id}
+      className={`transition hover:transform hover:scale-105 `}
+    >
+      <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>
+        {new Date(user.createdAt).toLocaleDateString()}
+      </TableCell>
+      <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>
+        <img
+          src={user.profilePicture || "/default-company.png"}
+          alt={user.username}
+          className="w-12 h-12 rounded-full object-cover bg-gray-400"
+        />
+      </TableCell>
+      <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>{user.username}</TableCell>
+      <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>{user.email}</TableCell>
+      <TableCell style={{ color: theme === "dark" ? "white" : "#2D3748" }}>{user.employees}</TableCell>
+      <TableCell>
+        <div className="flex gap-2">
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{
+              borderColor: "oklch(0.723 0.219 149.579)",
+              color: "oklch(0.723 0.219 149.579)",
+              textTransform: "none",
+              fontWeight: "bold",
+              borderRadius: "999px",
+              "&:hover": {
+                backgroundColor: "oklch(0.723 0.219 149.579 / 0.1)",
+                borderColor: "oklch(0.723 0.219 149.579)",
+              },
+            }}
+            onClick={() => handleEditClick(user)}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            size="small"
+            sx={{ textTransform: "none", borderRadius: "999px",fontWeight: "bold" }}
+            onClick={() => {
+              setUserIdToDelete(user.id);
+              setShowModal(true);
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
 
-      <Modal open={showModal} onClose={() => setShowModal(false)}>
-        <div className="flex justify-center items-center min-h-screen backdrop-opacity-100">
-          <div className="bg-white p-6 rounded-lg text-center">
-            <HiOutlineExclamationCircle className="h-14 w-14 !text-red-700 dark:text-gray-200 mb-4 mx-auto" />
-            <h3 className="mb-5 text-lg !text-gray-800 dark:text-gray-400">
-              Are you sure you want to delete this company?
-            </h3>
-            <div className="flex justify-center gap-4">
-              <Button color="error" onClick={handleConfirmDelete}>
-                Yes, I'm sure
-              </Button>
-              <Button color="inherit" onClick={() => setShowModal(false)}>
-                No, cancel
-              </Button>
+
+              </Table>
+            </TableContainer>
+
+            <div className="flex justify-center mt-6 gap-2 flex-wrap">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => paginate(i + 1)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium border ${
+                    theme === "dark" ? "border-gray-600 text-white hover:bg-gray-700" : "border-gray-300 text-gray-800 hover:bg-gray-200"
+                  } ${currentPage === i + 1 ? "bg-[oklch(0.627_0.265_303.9)] text-white" : ""}`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="text-gray-400 dark:text-gray-500">You have no companies yet!</p>
+        )}
+
+        {/* Delete Modal */}
+        <Modal open={showModal} onClose={() => setShowModal(false)}>
+          <div className="flex justify-center items-center min-h-screen bg-opacity-30">
+            <div className={`p-8 rounded-xl w-[90%] max-w-md shadow-lg ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white"}`}>
+              <div className="text-center">
+                <HiOutlineExclamationCircle className="w-14 h-14 mx-auto text-red-600 mb-6" />
+                <h3 className="text-xl font-semibold mb-6">Are you sure you want to delete this company?</h3>
+                <div className="flex justify-center gap-6">
+                  <Button variant="contained" color="error" onClick={handleConfirmDelete}>
+                    Yes, I'm sure
+                  </Button>
+                  <Button onClick={() => setShowModal(false)} color="inherit">
+                    Cancel
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
+        </Modal>
+
+        {/* Edit Modal */}
+        {/* Edit Modal */}
+<Modal open={editModalOpen} onClose={() => setEditModalOpen(false)}>
+  <div className="flex justify-center items-center min-h-screen bg-opacity-40">
+    <div
+      className={`p-8 rounded-2xl w-[90%] max-w-md shadow-xl ${
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+      }`}
+    >
+      <h2 className="text-2xl font-semibold mb-6 text-center">Edit Company</h2>
+      <div className="flex flex-col gap-5">
+        <TextField
+          label="Company Name"
+          value={editedCompany?.username || ""}
+          onChange={(e) => setEditedCompany({ ...editedCompany, username: e.target.value })}
+          fullWidth
+          variant="outlined"
+          InputLabelProps={{ style: { color: theme === "dark" ? "white" : undefined } }}
+          InputProps={{
+            style: {
+              color: theme === "dark" ? "white" : undefined,
+              borderColor: theme === "dark" ? "white" : undefined,
+            },
+          }}
+        />
+        <TextField
+          label="Email"
+          value={editedCompany?.email || ""}
+          onChange={(e) => setEditedCompany({ ...editedCompany, email: e.target.value })}
+          fullWidth
+          variant="outlined"
+          InputLabelProps={{ style: { color: theme === "dark" ? "white" : undefined } }}
+          InputProps={{
+            style: {
+              color: theme === "dark" ? "white" : undefined,
+              borderColor: theme === "dark" ? "white" : undefined,
+            },
+          }}
+        />
+        <TextField
+          label="Number of Employees"
+          type="number"
+          value={editedCompany?.employees || ""}
+          onChange={(e) =>
+            setEditedCompany({ ...editedCompany, employees: parseInt(e.target.value) })
+          }
+          fullWidth
+          variant="outlined"
+          InputLabelProps={{ style: { color: theme === "dark" ? "white" : undefined } }}
+          InputProps={{
+            style: {
+              color: theme === "dark" ? "white" : undefined,
+              borderColor: theme === "dark" ? "white" : undefined,
+            },
+          }}
+        />
+        <div className="flex justify-end gap-3 pt-4">
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "oklch(0.723 0.219 149.579)",
+              "&:hover": { backgroundColor: "oklch(0.627 0.194 149.214)" },
+              textTransform: "none",
+              fontWeight: "bold",
+              borderRadius: "999px",
+              px: 3,
+            }}
+            onClick={handleEditSave}
+          >
+            Save
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              borderColor: "#f87171",
+              borderRadius: "999px",
+              color: "#f87171",
+              "&:hover": {
+                backgroundColor: "#f87171",
+                color: "white",
+              },
+            }}
+            onClick={() => setEditModalOpen(false)}
+          >
+            Cancel
+          </Button>
         </div>
-      </Modal>
-    </div></>
+      </div>
+    </div>
+  </div>
+</Modal>
+
+
+      </div>
+    </>
   );
 }
+
+
+
+
+
+
+
+
+

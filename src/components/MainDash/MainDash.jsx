@@ -1,21 +1,27 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import Cards from "../Cards/Cards";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom'; 
+
 import DashCompany from "../../Pages/DashCompany";
 import AddCompany from "../../Pages/AddCompany";
-const MainDash = ({ tab }) => {
+import Dashboard from "../../Pages/Dashboard";
+
+const MainDash = () => {
   const { theme } = useSelector((state) => state.theme);
+  const location = useLocation();
+  const [tab, setTab] = useState('dashboard');
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tabFromUrl = urlParams.get('tab') || 'dashboard';
+    setTab(tabFromUrl);
+  }, [location.search]);
 
   return (
-    <div
-      className={`${
-        theme === "dark" ? "text-white bg-gray-900 rounded-4xl" : "text-gray-800 bg-white"
-      } w-full shadow-2xl  shadow-indigo-300  p-8 flex flex-col`}
-    >
+    <div className={`w-full flex flex-col  rounded-2xl shadow-lg `}>
       {tab === "companies" && <DashCompany />}
       {tab === "addcompany" && <AddCompany />}
-      {tab === "dashboard" && <Cards />}
-      <h1 className="text-2xl font-bold"></h1>
+      {tab === "dashboard" && <Dashboard />}
     </div>
   );
 };
