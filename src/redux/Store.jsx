@@ -7,7 +7,7 @@ export const store = configureStore({
   reducer: {
      user: userReducer,
      theme:themeReducer ,
-     companies: companyReducer,
+     company: companyReducer,
 
   },
 });

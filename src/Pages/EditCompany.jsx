@@ -1,57 +1,129 @@
-import { TextField, Button } from "@mui/material";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { editCompany } from "../redux/actions/companyActions"; 
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateCompany } from '../redux/CompanySlice';
+import { fetchCompanies } from "../redux/CompanySlice";
+import { useSelector } from 'react-redux';
 
-export default function EditCompany({ companyId }) {
+const EditCompany = ({ open, onClose, company }) => {
   const dispatch = useDispatch();
-  const company = useSelector((state) => state.companies.find((comp) => comp.id === companyId));
-  const [editedCompany, setEditedCompany] = useState(company);
+  const { theme } = useSelector((state) => state.theme);
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    employees: '',
+  });
 
   useEffect(() => {
-    setEditedCompany(company); 
+    if (company) {
+      setFormData({
+        name: company.name || '',
+        description: company.description || '',
+        employees: company.employees || '',
+      });
+    }
   }, [company]);
 
-  const handleSaveChanges = () => {
-    dispatch(editCompany(editedCompany)); 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const result = await dispatch(updateCompany({ id: company.id, data: formData }));
+      if (result.meta.requestStatus === 'fulfilled') {
+        dispatch(fetchCompanies());
+        onClose();
+      } else {
+        console.error("Update Failed:", result.payload);
+        alert("An error occurred while updating the company data");
+      }
+    } catch (error) {
+      console.error("Unexpected Error:", error);
+      alert("An unexpected error occurred while saving the changes");
+    }
   };
 
   return (
-    <div className="p-8 rounded-2xl w-[90%] max-w-md shadow-xl">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Edit Company</h2>
-      <div className="flex flex-col gap-5">
-        <TextField
-          label="Company Name"
-          value={editedCompany?.username || ""}
-          onChange={(e) => setEditedCompany({ ...editedCompany, username: e.target.value })}
-          fullWidth
-          variant="outlined"
-        />
-        <TextField
-          label="Company Email"
-          value={editedCompany?.email || ""}
-          onChange={(e) => setEditedCompany({ ...editedCompany, email: e.target.value })}
-          fullWidth
-          variant="outlined"
-        />
-        <TextField
-          label="Number of Employees"
-          value={editedCompany?.employees || ""}
-          onChange={(e) => setEditedCompany({ ...editedCompany, employees: e.target.value })}
-          fullWidth
-          variant="outlined"
-          type="number"
-        />
-        <div className="mt-4 text-center">
-          <Button
-            variant="contained"
-            onClick={handleSaveChanges}
-            sx={{ backgroundColor: "oklch(0.723 0.219 149.579)", textTransform: "none" }}
+    <div
+      className={`fixed inset-0 flex items-center justify-center ${open ? 'block' : 'hidden'}`}
+      onClick={onClose}
+    >
+      <div
+        className="relative bg-white rounded-lg shadow-lg w-full max-w-4xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          className={`p-6 text-center text-xl font-semibold ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}
+        >
+          Edit Company
+        </div>
+        <div
+          className={`p-6 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
+        >
+          <div className="mb-6">
+            <label htmlFor="name" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              Company Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="description" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              Description
+            </label>
+            <input
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+            />
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="employees" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              Number of Employees
+            </label>
+            <input
+              id="employees"
+              name="employees"
+              type="number"
+              value={formData.employees}
+              onChange={handleChange}
+              className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+            />
+          </div>
+        </div>
+
+        <div
+          className={`p-4 flex justify-between ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}
+        >
+          <button
+            onClick={onClose}
+            className="px-6 py-3 border rounded-full border-gray-500 text-gray-500 font-semibold hover:bg-gray-200"
           >
-            Save Changes
-          </Button>
+            Cancel
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="px-6 py-3 bg-green-600 text-white rounded-full hover:bg-green-700 text-lg"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default EditCompany;
