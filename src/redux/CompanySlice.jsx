@@ -38,11 +38,12 @@ export const deleteCompany = createAsyncThunk(
         return thunkAPI.rejectWithValue('Authentication token is missing');
       }
 
-      axios.delete(`http://localhost:8000/admin-dash/companies/${id}/delete/`, {
+      await axios.delete(`http://localhost:8000/admin-dash/companies/${id}/delete/`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
+      
 
       return id;
     } catch (error) {
@@ -68,6 +69,37 @@ export const updateCompany = createAsyncThunk(
     }
   }
 );
+export const addCompany = createAsyncThunk(
+  'company/addCompany',
+  async (data, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("employees", data.employees);
+      formData.append("address", data.address);
+      formData.append("description", data.description);
+      formData.append("website", data.website);
+
+      if (data.logo) {
+        formData.append("logo", data.logo);
+      }
+
+      const response = await axios.post('http://localhost:8000/admin-dash/companies/create/', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || 'Error occurred while adding the company');
+    }
+  }
+);
+
 
 const companySlice = createSlice({
   name: 'company',
@@ -102,7 +134,14 @@ const companySlice = createSlice({
         if (index !== -1) {
           state.companies[index] = updatedCompany;
         }
+      })
+      .addCase(addCompany.fulfilled, (state, action) => {
+        state.companies.push(action.payload);
+      })
+      .addCase(addCompany.rejected, (state, action) => {
+        state.error = action.payload;
       });
+      
   },
 });
 

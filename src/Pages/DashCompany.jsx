@@ -65,60 +65,62 @@ export default function DashCompany() {
           <>
             <div className="overflow-x-auto max-h-[400px]">
               <table className="min-w-full text-sm text-left">
-                <thead>
-                  <tr className="border-b border-gray-300">
-                    {["Date", "Image", "Name", "Description", "Employees", "Actions"].map(
-                      (header) => (
-                        <th
-                          key={header}
-                          className={`px-4 py-3 ${
-                            theme === "dark" ? "text-white" : "text-gray-700"
-                          }`}
-                        >
-                          {header}
-                        </th>
-                      )
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentItems.map((company) => (
-                    <tr
-                      key={company.id}
-                      className="transition hover:scale-[1.01] border-b border-gray-200"
-                    >
-                      <td className="px-4 py-2">
-                        {new Date(company.created_at || company.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="px-4 py-2">
-                        <img
-                          src={company.logo}
-                          alt={company.name}
-                          className="w-20 h-20 object-contain rounded-md"
-                        />
-                      </td>
-                      <td className="px-4 py-2">{company.name}</td>
-                      <td className="px-4 py-2">{company.description}</td>
-                      <td className="px-4 py-2">{company.employees}</td>
-                      <td className="px-4 py-2">
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleEditClick(company)}
-                            className="border border-blue-500 text-blue-500 px-2 py-1 rounded-md hover:bg-blue-500 hover:text-white transition"
-                          >
-                            <HiOutlinePencil className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(company.id)}
-                            className="border border-red-500 text-red-500 px-2 py-1 rounded-md hover:bg-red-500 hover:text-white transition"
-                          >
-                            <HiOutlineTrash className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+              <thead>
+  <tr className="border-b border-gray-300">
+    {["Date", "Image", "Name", "Description","Location", "Website", "Employees", "Actions"].map(
+      (header) => (
+        <th
+          key={header}
+          className={`px-4 py-3 ${
+            theme === "dark" ? "text-white" : "text-gray-700"
+          }`}
+        >
+          {header}
+        </th>
+      )
+    )}
+  </tr>
+</thead>
+<tbody>
+  {currentItems.map((company) => (
+    <tr
+      key={company.id}
+      className="transition hover:scale-[1.01] border-b border-gray-200"
+    >
+      <td className="px-4 py-2">
+        {new Date(company.created_at || company.createdAt).toLocaleDateString()}
+      </td>
+      <td className="px-4 py-2">
+        <img
+          src={`http://localhost:8000${company.logo}`}
+          alt={company.name}
+          className="w-20 h-20 object-contain rounded-md"
+        />
+      </td>
+      <td className="px-4 py-2">{company.name}</td>
+      <td className="px-4 py-2">{company.description}</td>
+      <td className="px-4 py-2">{company.address}</td>
+      <td className="px-4 py-2">{company.website}</td> 
+      <td className="px-4 py-2">{company.employees}</td>
+      <td className="px-4 py-2">
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleEditClick(company)}
+            className="border border-blue-500 text-blue-500 px-2 py-1 rounded-md hover:bg-blue-500 hover:text-white transition"
+          >
+            <HiOutlinePencil className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => handleDelete(company.id)}
+            className="border border-red-500 text-red-500 px-2 py-1 rounded-md hover:bg-red-500 hover:text-white transition"
+          >
+            <HiOutlineTrash className="w-4 h-4" />
+          </button>
+        </div>
+      </td>
+    </tr>
+  ))}
+</tbody>
               </table>
             </div>
 

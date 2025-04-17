@@ -26,6 +26,7 @@
     "react-router-dom": "^7.1.1",
     "react-scripts": "^3.0.1",
     "react-text-gradients": "^1.0.2",
+    "react-toastify": "^11.0.5",
     "recharts": "^2.15.2",
     "styled-components": "^6.1.15",
     "web-vitals": "^4.2.4"

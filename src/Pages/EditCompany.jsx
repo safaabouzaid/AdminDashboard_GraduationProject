@@ -11,6 +11,8 @@ const EditCompany = ({ open, onClose, company }) => {
     name: '',
     description: '',
     employees: '',
+    address: '',
+    website: '',
   });
 
   useEffect(() => {
@@ -19,6 +21,8 @@ const EditCompany = ({ open, onClose, company }) => {
         name: company.name || '',
         description: company.description || '',
         employees: company.employees || '',
+        address: company.address || '',
+        website: company.website || '',
       });
     }
   }, [company]);
@@ -103,6 +107,32 @@ const EditCompany = ({ open, onClose, company }) => {
               className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
             />
           </div>
+          <div className="mb-6">
+  <label htmlFor="address" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+    Location
+  </label>
+  <input
+    id="address"
+    name="address"
+    value={formData.address}
+    onChange={handleChange}
+    className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+  />
+</div>
+
+<div className="mb-6">
+  <label htmlFor="website" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+    Website
+  </label>
+  <input
+    id="website"
+    name="website"
+    value={formData.website}
+    onChange={handleChange}
+    className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+  />
+</div>
+
         </div>
 
         <div
