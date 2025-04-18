@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import DashCompany from "../../Pages/DashCompany";
 import AddCompany from "../../Pages/AddCompany";
 import Dashboard from "../../Pages/Dashboard";
+import CompanyAds from "../../Pages/CompanyAds"
 
 const MainDash = () => {
   const { theme } = useSelector((state) => state.theme);
@@ -22,6 +23,8 @@ const MainDash = () => {
       {tab === "companies" && <DashCompany />}
       {tab === "addcompany" && <AddCompany />}
       {tab === "dashboard" && <Dashboard />}
+      {tab === "ads" && <CompanyAds />}
+
     </div>
   );
 };

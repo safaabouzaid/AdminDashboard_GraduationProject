@@ -27,7 +27,7 @@ const Sidebar = () => {
     { icon: <FiHome />, label: 'Dashboard', tab: 'dashboard' },
     { icon: <FaBuildingUser />, label: 'All Companies', tab: 'companies' },
     { icon: <GroupAddIcon />, label: 'Add Company', tab: 'addcompany' },
-    { icon: <MdOutlinePolicy />, label: 'Policies', tab: 'policies' },
+    { icon: <MdOutlinePolicy />, label: 'Ads', tab: 'ads' },
     { icon: <AiOutlineComment />, label: 'Complaints', tab: 'complaints' },
     { icon: <AiOutlineLogin />, label: 'Log out', tab: 'logout' },
   ];
