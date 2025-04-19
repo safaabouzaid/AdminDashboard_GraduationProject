@@ -44,7 +44,7 @@ const Header = () => {
     <div className="flex items-center space-x-2">
       <SearchIcon className="text-gray-400" />
       <InputBase
-        placeholder="ابحث عن شركة..."
+        placeholder="Find a company ..."
         className="w-72"
         inputProps={{ style: { color: theme === "dark" ? "white" : "black" } }}
         value={searchQuery}
