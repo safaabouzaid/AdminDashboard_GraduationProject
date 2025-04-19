@@ -6,8 +6,17 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
-      external: ["react-icons"]
+      external: ['@mui/material', '@mui/system'],
     }
+  },
+  optimizeDeps: {
+    include: ['@mui/material', '@mui/system', '@mui/icons-material'],
+  },  
+
+  chunkSizeWarningLimit: 1000 ,
+  
+  commonjsOptions: {
+    include: [/node_modules/]
   },
   resolve: {
     alias: {
@@ -15,5 +24,3 @@ export default defineConfig({
     },
   },
 });
-
-

@@ -3,7 +3,7 @@ import userReducer from "./UserSlice";
 import themeReducer from "./thems/themeSlice";
 import companyReducer from "./CompanySlice";
 import adsReducer from "./AdsSlice"
-
+import searchReducer from './SearchSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +11,7 @@ export const store = configureStore({
      theme:themeReducer ,
      company: companyReducer,
      ads: adsReducer,
+     search: searchReducer,
 
   },
 });
