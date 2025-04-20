@@ -38,7 +38,7 @@ const Header = () => {
       </Link>
 
       {/* Search */}
-      <div className="relative">
+      <div className="relative pb-3 pt-3">
   <form className={`rounded-xl ring-2 px-3 py-1 transition-all 
     ${theme === 'dark' ? 'bg-gray-800 ring-gray-700' : 'bg-white ring-gray-300'}`}>
     <div className="flex items-center space-x-2">

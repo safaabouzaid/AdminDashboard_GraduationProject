@@ -40,7 +40,10 @@ export default function DashCompany() {
     setEditedCompany(company);
     setEditModalOpen(true);
   };
-
+  const handleRowClick = (id) => {
+    navigate(`/company/${id}`);
+  };
+  
   return (
     <>
       <div className="text-end mb-4">
@@ -84,9 +87,11 @@ export default function DashCompany() {
 <tbody>
   {currentItems.map((company) => (
     <tr
-      key={company.id}
-      className="transition hover:scale-[1.01] border-b border-gray-200"
-    >
+    key={company.id}
+    onClick={() => handleRowClick(company.id)}
+    className="cursor-pointer transition hover:!bg-gray-400 dark:hover:bg-gray-700 border-b border-gray-200"
+  >
+  
       <td className="px-4 py-2">
         {new Date(company.created_at || company.createdAt).toLocaleDateString()}
       </td>
@@ -103,21 +108,28 @@ export default function DashCompany() {
       <td className="px-4 py-2">{company.website}</td> 
       <td className="px-4 py-2">{company.employees}</td>
       <td className="px-4 py-2">
-        <div className="flex gap-2">
-          <button
-            onClick={() => handleEditClick(company)}
-            className="border border-blue-500 text-blue-500 px-2 py-1 rounded-md hover:bg-blue-500 hover:text-white transition"
-          >
-            <HiOutlinePencil className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => handleDelete(company.id)}
-            className="border border-red-500 text-red-500 px-2 py-1 rounded-md hover:bg-red-500 hover:text-white transition"
-          >
-            <HiOutlineTrash className="w-4 h-4" />
-          </button>
-        </div>
-      </td>
+  <div className="flex gap-2">
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleEditClick(company);
+      }}
+      className="border border-blue-500 text-blue-500 px-2 py-1 rounded-md hover:bg-blue-500 hover:text-white transition"
+    >
+      <HiOutlinePencil className="w-4 h-4" />
+    </button>
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleDelete(company.id);
+      }}
+      className="border border-red-500 text-red-500 px-2 py-1 rounded-md hover:bg-red-500 hover:text-white transition"
+    >
+      <HiOutlineTrash className="w-4 h-4" />
+    </button>
+  </div>
+</td>
+
     </tr>
   ))}
 </tbody>

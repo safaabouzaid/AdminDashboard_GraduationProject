@@ -6,6 +6,8 @@ import { Privacy } from "./Pages/Privacy";
 import Dashboard from './Pages/Dashboard';
 import MainDash from "./components/MainDash/MainDash";
 import DashboardLayout from "./components/DashboardLayout";
+import CompanyProfile from "./Pages/CompanyProfile";
+
 const theme = createTheme({
   palette: {
     secondary: "",
@@ -32,6 +34,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/company/:id" element={<CompanyProfile />} />
 
         <Route path="/dashboard" element={
           <DashboardLayout>

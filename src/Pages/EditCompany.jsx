@@ -13,6 +13,7 @@ const EditCompany = ({ open, onClose, company }) => {
     employees: '',
     address: '',
     website: '',
+    logo: null,
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const EditCompany = ({ open, onClose, company }) => {
         employees: company.employees || '',
         address: company.address || '',
         website: company.website || '',
+        logo: null,
       });
     }
   }, [company]);
@@ -51,13 +53,21 @@ const EditCompany = ({ open, onClose, company }) => {
     }
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      logo: file,
+    }));
+  };
+
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center ${open ? 'block' : 'hidden'}`}
+      className={`fixed inset-0 flex items-center  justify-center ${open ? 'block' : 'hidden'}`}
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-lg shadow-lg w-full max-w-4xl"
+        className={`relative bg-white rounded-xl shadow-2xl w-full max-w-3xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div
@@ -65,9 +75,24 @@ const EditCompany = ({ open, onClose, company }) => {
         >
           Edit Company
         </div>
+
         <div
           className={`p-6 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
         >
+          <div className="mb-6">
+            <label htmlFor="logo" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              Company Logo
+            </label>
+            <input
+              id="logo"
+              name="logo"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full mt-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200"
+            />
+          </div>
+
           <div className="mb-6">
             <label htmlFor="name" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               Company Name
@@ -77,7 +102,7 @@ const EditCompany = ({ open, onClose, company }) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
             />
           </div>
 
@@ -90,7 +115,7 @@ const EditCompany = ({ open, onClose, company }) => {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
             />
           </div>
 
@@ -104,35 +129,35 @@ const EditCompany = ({ open, onClose, company }) => {
               type="number"
               value={formData.employees}
               onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
+              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
             />
           </div>
+
           <div className="mb-6">
-  <label htmlFor="address" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-    Location
-  </label>
-  <input
-    id="address"
-    name="address"
-    value={formData.address}
-    onChange={handleChange}
-    className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
-  />
-</div>
+            <label htmlFor="address" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              Location
+            </label>
+            <input
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
+            />
+          </div>
 
-<div className="mb-6">
-  <label htmlFor="website" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-    Website
-  </label>
-  <input
-    id="website"
-    name="website"
-    value={formData.website}
-    onChange={handleChange}
-    className={`w-full p-4 mt-2 rounded-md border ${theme === 'dark' ? 'bg-gray-600 text-white' : 'bg-gray-200 text-black'} text-lg`}
-  />
-</div>
-
+          <div className="mb-6">
+            <label htmlFor="website" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              Website
+            </label>
+            <input
+              id="website"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
+            />
+          </div>
         </div>
 
         <div
@@ -146,7 +171,7 @@ const EditCompany = ({ open, onClose, company }) => {
           </button>
           <button
             onClick={handleSubmit}
-            className="px-6 py-3 bg-green-600 text-white rounded-full hover:bg-green-700 text-lg"
+            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 text-lg"
           >
             Save
           </button>
