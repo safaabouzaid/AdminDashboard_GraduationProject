@@ -1,13 +1,29 @@
 import React from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "./Header";
-import { useSelector } from 'react-redux';
 import { TrendingUp, Users, Briefcase, DollarSign } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDashboardStats } from "../redux/dashboardStatsSlice";   
 
 const Dashboard = () => {
   const { theme } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
+  const { stats, loading } = useSelector((state) => state.dashboardStats);
+  const lineData = stats?.line_chart_data || [];
+  const pieData = stats?.pie_chart_data || [];
 
+
+  useEffect(() => {
+    dispatch(fetchDashboardStats());
+  }, [dispatch]);
+
+
+
+
+
+  {/*  
   const lineData = [
     { month: 'January', jobs: 10 },
     { month: 'February', jobs: 20 },
@@ -22,6 +38,10 @@ const Dashboard = () => {
     { name: 'Backend Developer', value: 300 },
     { name: 'Data Scientist', value: 200 },
   ];
+*/}
+
+
+
 
   const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042'];
 
@@ -38,7 +58,7 @@ const Dashboard = () => {
                 <Users size={28} className="text-green-500" />
                 <div>
                   <p className="text-sm text-gray-400">Number of Companies</p>
-                  <h3 className="text-2xl font-bold">45</h3>
+                  <h3 className="text-2xl font-bold">{stats?.num_companies}</h3>
                 </div>
               </div>
             </div>
@@ -48,7 +68,7 @@ const Dashboard = () => {
                 <TrendingUp size={28} className="text-blue-500" />
                 <div>
                   <p className="text-sm text-gray-400">Most Hiring Companies</p>
-                  <h3 className="text-lg font-semibold">ForsaTech</h3>
+                  <h3 className="text-lg font-semibold">{stats?.most_hiring_company}</h3>
                 </div>
               </div>
             </div>
@@ -58,7 +78,7 @@ const Dashboard = () => {
                 <Briefcase size={28} className="text-yellow-500" />
                 <div>
                   <p className="text-sm text-gray-400">Most Demanded Jobs</p>
-                  <h3 className="text-lg font-semibold">React Developer, AI Engineer</h3>
+                  <h3 className="text-lg font-semibold">{stats?.most_demanded_jobs.join(', ')}</h3>
                 </div>
               </div>
             </div>
@@ -68,7 +88,7 @@ const Dashboard = () => {
                 <DollarSign size={28} className="text-purple-500" />
                 <div>
                   <p className="text-sm text-gray-400">Highest Paying Jobs</p>
-                  <h3 className="text-lg font-semibold">ML Engineer - $5000</h3>
+                  <h3 className="text-lg font-semibold"> {stats?.highest_paying_job.title} - ${stats?.highest_paying_job.salary}</h3>
                 </div>
               </div>
             </div>
@@ -82,7 +102,7 @@ const Dashboard = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip />
+                <Tooltip /><Line type="monotone" dataKey="count" stroke="#8884d8" strokeWidth={3} isAnimationActive={true} />
                 <Line type="monotone" dataKey="jobs" stroke="#8884d8" strokeWidth={3} isAnimationActive={true} />
               </LineChart>
             </ResponsiveContainer>
