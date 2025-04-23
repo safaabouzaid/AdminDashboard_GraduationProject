@@ -206,6 +206,12 @@ export default function AddCompany() {
             >
               Company Logo (Upload Image)
             </label>
+            {company.logo && (
+  <div className="mt-4 text-green-600 font-semibold">
+    ✅ Logo selected successfully
+  </div>
+)}
+
             <div
               className={`flex items-center p-3 rounded-xl border ${
                 theme === "dark"

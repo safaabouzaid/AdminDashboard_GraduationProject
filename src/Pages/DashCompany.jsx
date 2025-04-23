@@ -6,6 +6,8 @@ import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
 import DeleteCompany from "./DeleteCompany";
 import EditCompany from "./EditCompany";
 
+import defaultLogo from "../assets/user1.jpeg";
+
 export default function DashCompany() {
   const { theme } = useSelector((state) => state.theme);
   const { companies, loading, error } = useSelector((state) => state.company);
@@ -70,7 +72,7 @@ export default function DashCompany() {
               <table className="min-w-full text-sm text-left">
               <thead>
   <tr className="border-b border-gray-300">
-    {["Date", "Image", "Name", "Description","Location", "Website", "Employees", "Actions"].map(
+    {["Date", "Image", "Name","Location", "Website", "Actions"].map(
       (header) => (
         <th
           key={header}
@@ -86,6 +88,7 @@ export default function DashCompany() {
 </thead>
 <tbody>
   {currentItems.map((company) => (
+    
     <tr
     key={company.id}
     onClick={() => handleRowClick(company.id)}
@@ -96,17 +99,31 @@ export default function DashCompany() {
         {new Date(company.created_at || company.createdAt).toLocaleDateString()}
       </td>
       <td className="px-4 py-2">
-        <img
-          src={`http://localhost:8000${company.logo}`}
-          alt={company.name}
-          className="w-20 h-20 object-contain rounded-md"
-        />
-      </td>
+      <img
+  src={company.logo ? `http://localhost:8000${company.logo}` : defaultLogo}
+  alt={company.name}
+  className="w-20 h-20 object-contain rounded-md"
+/>
+
+</td>
+
       <td className="px-4 py-2">{company.name}</td>
-      <td className="px-4 py-2">{company.description}</td>
+      {/*<td className="px-4 py-2">{company.description}</td>*/}
       <td className="px-4 py-2">{company.address}</td>
-      <td className="px-4 py-2">{company.website}</td> 
-      <td className="px-4 py-2">{company.employees}</td>
+      <td className="px-4 py-2">
+  <a
+    href={company.website && company.website.startsWith("http") ? company.website : `https://${company.website}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    onClick={(e) => e.stopPropagation()} 
+    className="text-blue-500 underline hover:text-blue-700"
+  >
+    {company.website}
+  </a>
+</td>
+
+ 
+      
       <td className="px-4 py-2">
   <div className="flex gap-2">
     <button

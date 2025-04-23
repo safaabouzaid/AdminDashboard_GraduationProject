@@ -43,7 +43,7 @@ const Sidebar = () => {
   return (
 <div
   className={`
-    w-full sm:w-1/4 md:w-1/5 lg:w-1/6 
+    w-full sm:w-1/3 md:w-1/4 lg:w-1/5 ml-4
     min-h-screen p-3 sm:p-4 lg:p-5 
     shadow-lg rounded-xl transition-all 
     ${theme === "dark" 

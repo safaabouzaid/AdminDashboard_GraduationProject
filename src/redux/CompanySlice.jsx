@@ -7,19 +7,7 @@ export const fetchCompanies = createAsyncThunk(
   'company/fetchCompanies',
   async (_, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
-      console.log("Token from localStorage:", token);
-
-      if (!token) {
-        return thunkAPI.rejectWithValue('Authentication token is missing');
-      }
-
-      const response = await axios.get(API_URL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const response = await axios.get(API_URL);
       return response.data.data;
     } catch (error) {
       console.error("Error fetching companies:", error);

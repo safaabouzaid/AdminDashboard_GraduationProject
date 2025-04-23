@@ -51,8 +51,8 @@ const Dashboard = () => {
       
 
         {/* Statistics */}
-        <div className="w-4/5 p-6 flex flex-col gap-10 overflow-y-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className=" p-6 flex flex-col gap-5 overflow-y-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             <div className={`rounded-2xl p-6 shadow-md transform transition duration-300 hover:scale-105 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}>
               <div className="flex items-center gap-4">
                 <Users size={28} className="text-green-500" />
