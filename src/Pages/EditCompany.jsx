@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateCompany } from '../redux/CompanySlice';
-import { fetchCompanies } from "../redux/CompanySlice";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCompany, fetchCompanies } from '../redux/CompanySlice';
 
 const EditCompany = ({ open, onClose, company }) => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -31,10 +30,12 @@ const EditCompany = ({ open, onClose, company }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, logo: file }));
   };
 
   const handleSubmit = async () => {
@@ -44,134 +45,102 @@ const EditCompany = ({ open, onClose, company }) => {
         dispatch(fetchCompanies());
         onClose();
       } else {
-        console.error("Update Failed:", result.payload);
         alert("An error occurred while updating the company data");
       }
     } catch (error) {
-      console.error("Unexpected Error:", error);
       alert("An unexpected error occurred while saving the changes");
     }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevData) => ({
-      ...prevData,
-      logo: file,
-    }));
-  };
-
   return (
     <div
-      className={`fixed inset-0 flex items-center  justify-center ${open ? 'block' : 'hidden'}`}
+      className={`fixed inset-0 flex items-center justify-center bg-white/20 backdrop-blur-md bg-opacity-30 z-50 ${open ? 'block' : 'hidden'}`}
       onClick={onClose}
     >
       <div
-        className={`relative bg-white rounded-xl shadow-2xl w-full max-w-3xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+        className={`relative rounded-xl shadow-2xl max-h-[90vh] overflow-y-auto w-[95%] sm:w-[600px] ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className={`p-6 text-center text-xl font-semibold ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}
-        >
+        <div className="p-3 text-center text-lg font-semibold border-b border-gray-300">
           Edit Company
         </div>
 
-        <div
-          className={`p-6 ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
-        >
-          <div className="mb-6">
-            <label htmlFor="logo" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Company Logo
-            </label>
+        <div className="p-4 space-y-4 text-sm">
+          <div>
+            <label className="block mb-1 font-medium">Company Logo</label>
             <input
-              id="logo"
               name="logo"
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="w-full mt-2 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200"
+              className="w-full text-sm file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200"
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="name" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Company Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block mb-1 font-medium">Company Name</label>
+              <input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className={`w-full p-2 rounded-md border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 border-gray-300'}`}
+              />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium">Employees</label>
+              <input
+                name="employees"
+                type="number"
+                value={formData.employees}
+                onChange={handleChange}
+                className={`w-full p-2 rounded-md border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 border-gray-300'}`}
+              />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium">Location</label>
+              <input
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className={`w-full p-2 rounded-md border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 border-gray-300'}`}
+              />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium">Website</label>
+              <input
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                className={`w-full p-2 rounded-md border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 border-gray-300'}`}
+              />
+            </div>
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="description" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Description
-            </label>
+          <div>
+            <label className="block mb-1 font-medium">Description</label>
             <input
-              id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label htmlFor="employees" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Number of Employees
-            </label>
-            <input
-              id="employees"
-              name="employees"
-              type="number"
-              value={formData.employees}
-              onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label htmlFor="address" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Location
-            </label>
-            <input
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
-            />
-          </div>
-
-          <div className="mb-6">
-            <label htmlFor="website" className={`block text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Website
-            </label>
-            <input
-              id="website"
-              name="website"
-              value={formData.website}
-              onChange={handleChange}
-              className={`w-full p-4 mt-2 rounded-xl border-2 focus:ring-2 ${theme === 'dark' ? 'bg-gray-600 text-white border-gray-500 focus:ring-blue-500' : 'bg-gray-200 text-black border-gray-300 focus:ring-blue-500'}`}
+              className={`w-full p-2 rounded-md border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 border-gray-300'}`}
             />
           </div>
         </div>
 
-        <div
-          className={`p-4 flex justify-between ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}
-        >
+        <div className="p-3 flex justify-between border-gray-300">
           <button
             onClick={onClose}
-            className="px-6 py-3 border rounded-full border-gray-500 text-gray-500 font-semibold hover:bg-gray-200"
+            className="px-4 py-2 border rounded-md text-gray-600 hover:bg-gray-200"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 text-lg"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Save
           </button>

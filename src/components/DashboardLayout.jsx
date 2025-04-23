@@ -18,7 +18,7 @@ const DashboardLayout = ({ children }) => {
       <Header />
 
       {/* sidbar+ main*/}
-      <div className="flex flex-1/12 mt-7">
+      <div className="flex flex-1/12 mt-4">
         {/* Sidebar */}
         
           <Sidebar />
@@ -26,10 +26,12 @@ const DashboardLayout = ({ children }) => {
 
         {/* Main Content  */}
         <div
-  className={`flex-1/3 rounded-xl shadow-lg p-4 h-[calc(100vh-4.5rem)] overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent ${theme === 'dark' ? 'bg-[#1f2937fb]' : 'bg-[#F8F8F8]'} scrollbar-hide`}
+  className={`flex-1/3 rounded-xl shadow-lg p-4 pt-0 mt-0 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent ${theme === 'dark' ? 'bg-[#1f2937fb]' : 'bg-[#F8F8F8]'} scrollbar-hide custom-dashboard`}
+  style={{ height: 'calc(100vh - 4.5rem)' }}
 >
-          {children}
-        </div>
+  {children}
+</div>
+
       </div>
     </div>
   );

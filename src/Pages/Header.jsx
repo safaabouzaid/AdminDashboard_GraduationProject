@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <header className={`h-50 flex items-center justify-between px-6  transition-all shadow-sm rounded-xl
+     <header className={`mb-0  h-14 sm:h-10 flex items-center justify-between px-4 sm:px-6 transition-all shadow-sm rounded-xl
       ${theme === "dark"
         ? "bg-gradient-to-br from-gray-950 via-gray-800 to-gray-900 text-white"
         : "bg-gradient-to-r from-white to-purple-100 text-gray-900"}`}>
@@ -38,8 +38,8 @@ const Header = () => {
       </Link>
 
       {/* Search */}
-      <div className="relative pb-3 pt-3">
-  <form className={`rounded-xl ring-2 px-3 py-1 transition-all 
+      <div className="relative py-1 sm:py-2 ">
+  <form className={`rounded-4xl ring-2 px-2 py-[2px] sm:px-3 sm:py-[0px] transition-all  
     ${theme === 'dark' ? 'bg-gray-800 ring-gray-700' : 'bg-white ring-gray-300'}`}>
     <div className="flex items-center space-x-2">
       <SearchIcon className="text-gray-400" />
@@ -82,7 +82,7 @@ const Header = () => {
       {/* Theme toggle */}
       <button
         onClick={() => dispatch(toggleTheme())}
-        className="w-10 h-10 flex items-center justify-center rounded-full shadow-sm 
+        className="w-10 h-9 flex items-center justify-center rounded-full shadow-sm 
         bg-gradient-to-br from-indigo-500 to-purple-600 hover:opacity-90 transition-all"
       >
         {theme === "dark" ? (

@@ -46,10 +46,10 @@ export default function DashCompany() {
   
   return (
     <>
-      <div className="text-end mb-4">
+      <div className="text-end mb-4 pt-2">
         <button
           onClick={() => navigate("/dashboard?tab=addcompany")}
-          className="bg-[oklch(0.723_0.219_149.579)] hover:bg-[oklch(0.627_0.194_149.214)] text-white font-bold rounded-full px-6 py-2 text-base transition duration-300"
+          className="bg-[oklch(0.723_0.219_149.579)] hover:bg-[oklch(0.627_0.194_149.214)] text-white font-bold rounded-full px-6 py-2  text-base transition duration-300"
         >
           Add Company
         </button>
