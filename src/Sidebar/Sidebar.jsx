@@ -7,6 +7,10 @@ import { AiOutlineLogin, AiOutlineComment } from "react-icons/ai";
 import { useSelector } from 'react-redux';
 import './Sidebar.css'; 
 
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/UserSlice';
+
+
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 const Sidebar = () => {
   const location = useLocation();
@@ -32,18 +36,33 @@ const Sidebar = () => {
     { icon: <AiOutlineLogin />, label: 'Log out', tab: 'logout' },
   ];
 
-  const handleTabClick = (tabName) => {
-    // Navigate without reloading the entire page
-    navigate(`/dashboard?tab=${tabName}`);
-    setTab(tabName); // Update the state for the selected tab
-  };
   
+  
+  const dispatch = useDispatch();
+  
+  const handleTabClick = (tabName) => {
+    if (tabName === 'logout') {
+      dispatch(logout());
+      navigate('/login');  
+      return;
+    }
+  
+    navigate(`/dashboard?tab=${tabName}`);
+    setTab(tabName);
+  };
+
+  
+
+
+
+
+
 
 
   return (
 <div
-  className={`
-    w-full sm:w-1/3 md:w-1/4 lg:w-1/5 ml-4
+  className={`    h-full ml-4
+    lg:w-full sm:w-1/1 md:w-50 
     min-h-screen p-3 sm:p-4 lg:p-5 
     shadow-lg rounded-xl transition-all 
     ${theme === "dark" 

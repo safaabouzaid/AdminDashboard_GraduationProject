@@ -61,18 +61,16 @@ export default function AddCompany() {
         theme === "dark" ? "" : ""
       }`}
     >
+      
       <div
         className={`${
           theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"
         } backdrop-blur-xl bg-opacity-60 dark:bg-opacity-70 rounded-3xl shadow-2xl p-10 w-full max-w-6xl transition-all duration-300`}
       >
-        <h2
-          className={`text-4xl font-bold text-center mb-4 ${
-            theme === "dark" ? "text-white" : "text-gray-800"
-          }`}
-        >
-          Add a New Company
-        </h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-4">
+  Add a New Company
+</h2>
+
         <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="flex flex-col">
             <label
@@ -86,7 +84,7 @@ export default function AddCompany() {
               value={company.name}
               onChange={handleChange}
               required
-              className={`px-4 py-2 rounded-xl border ${
+              className={`px-3 py-2 rounded-xl border ${
                 theme === "dark"
                   ? "border-gray-600 bg-gray-700 text-white"
                   : "border-gray-300 bg-white text-gray-800"
@@ -107,7 +105,7 @@ export default function AddCompany() {
               value={company.email}
               onChange={handleChange}
               required
-              className={`px-4 py-2 rounded-xl border ${
+              className={`px-3 py-2 rounded-xl border ${
                 theme === "dark"
                   ? "border-gray-600 bg-gray-700 text-white"
                   : "border-gray-300 bg-white text-gray-800"
@@ -128,7 +126,7 @@ export default function AddCompany() {
               value={company.employees}
               onChange={handleChange}
               required
-              className={`px-4 py-2 rounded-xl border ${
+              className={`px-3 py-2 rounded-xl border ${
                 theme === "dark"
                   ? "border-gray-600 bg-gray-700 text-white"
                   : "border-gray-300 bg-white text-gray-800"
@@ -149,7 +147,7 @@ export default function AddCompany() {
               value={company.address}
               onChange={handleChange}
               required
-              className={`px-4 py-2 rounded-xl border ${
+              className={`px-3 py-2 rounded-xl border ${
                 theme === "dark"
                   ? "border-gray-600 bg-gray-700 text-white"
                   : "border-gray-300 bg-white text-gray-800"
@@ -169,8 +167,8 @@ export default function AddCompany() {
                 name="description"
                 value={company.description}
                 onChange={handleChange}
-                rows={1}
-                className={`px-4 py-2 rounded-xl border ${
+                rows={2}
+                className={`px-3 py-2 rounded-xl resize-none border ${
                   theme === "dark"
                     ? "border-gray-600 bg-gray-700 text-white"
                     : "border-gray-300 bg-white text-gray-800"
@@ -190,7 +188,7 @@ export default function AddCompany() {
                 name="website"
                 value={company.website}
                 onChange={handleChange}
-                className={`px-4 py-2 rounded-xl border ${
+                className={`px-3 py-2 rounded-xl border ${
                   theme === "dark"
                     ? "border-gray-600 bg-gray-700 text-white"
                     : "border-gray-300 bg-white text-gray-800"
@@ -225,7 +223,7 @@ export default function AddCompany() {
                 name="logo"
                 onChange={handleChange}
                 accept="image/*"
-                className="px-4 py-2 rounded-xl border-none focus:outline-none"
+                className="px-3 py-2 rounded-xl border-none focus:outline-none"
               />
             </div>
             <small
@@ -241,7 +239,7 @@ export default function AddCompany() {
             <button
               type="button"
               onClick={() => navigate("/dashboard?tab=companies")}
-              className={`px-6 py-3 rounded-full ${
+              className={`px-3 py-2.5  rounded-xl ${
                 theme === "dark"
                   ? "border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                   : "border-red-500 text-red-500 hover:bg-red-100"
@@ -251,7 +249,7 @@ export default function AddCompany() {
             </button>
             <button
               type="submit"
-              className={`px-6 py-3 rounded-full ${
+              className={`px-4 py-2.5 rounded-xl ${
                 theme === "dark"
                   ? "bg-green-500 hover:bg-green-600 text-white"
                   : "bg-green-500 hover:bg-green-600 text-white"

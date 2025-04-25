@@ -19,7 +19,7 @@ const MainDash = () => {
   }, [location.search]);
 
   return (
-    <div className={`w-full flex flex-col  rounded-2xl shadow-lg mt-0 `}>
+    <div className={`w-full flex flex-col   ml-3 rounded-2xl shadow-lg mt-0 `}>
       {tab === "companies" && <DashCompany />}
       {tab === "addcompany" && <AddCompany />}
       {tab === "dashboard" && <Dashboard />}

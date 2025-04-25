@@ -1,117 +1,107 @@
-import { FaRegUser } from "react-icons/fa6";
-import { TbLockPassword } from "react-icons/tb";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/UserSlice";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import loginImage from "../assets/images/login2.jpg";
-import "./Login.css";
+import { useNavigate, Link } from "react-router-dom";
+import { FaUserAlt, FaEye, FaEyeSlash } from "react-icons/fa";
+import { TbLockPassword } from "react-icons/tb";
+import loginImage from "../assets/login.jpg";
 
-export const Login = () => {
-  const [email, setEmail] = useState(""); 
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.user);
 
-  const handleLoginEvent = (e) => {
+  const togglePassword = () => setShowPassword(!showPassword);
+
+  const handleLogin = (e) => {
     e.preventDefault();
     const userCredential = { email, password };
-  
-    dispatch(loginUser(userCredential)).then((result) => {
-      if (result.payload && result.payload.access) {
-        setEmail(""); 
-        setPassword("");
-        navigate("/dashboard");  
-  
-        console.log('Token in localStorage after login:', localStorage.getItem('token'));
-      } else {
-        console.error("Login failed:", result.error.message);
-      }
-    }).catch((error) => {
-      console.error("Login error caught:", error);
-    });
+
+    dispatch(loginUser(userCredential))
+      .then((result) => {
+        if (result.payload && result.payload.access) {
+          setEmail("");
+          setPassword("");
+          navigate("/dashboard");
+          console.log("Token in localStorage after login:", localStorage.getItem("token"));
+        } else {
+          console.error("Login failed:", result.error.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Login error caught:", error);
+      });
   };
-  
-  
-  
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="login-container">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-[#f5f5fa] to-[#eaeefb] px-4">
+      <div className="flex w-full max-w-5xl rounded-3xl overflow-hidden shadow-xl bg-white">
+        {/* Left Side Image */}
         <div
-          className="login-image"
+          className="hidden lg:block w-1/2 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${loginImage})` }}
         ></div>
-        <div className="login-form">
-          <h2 className="form-title">Welcome to Forsa-Tech</h2>
-          <div className="line"></div>
-          <h5 style={{ textAlign: "start", color: "#333333dc" }}>
-            Login as an admin user
-          </h5>
-          <form className="custom-form" onSubmit={handleLoginEvent}>
-            <div className="input-container">
-              <FaRegUser className="input-icon" />
+
+        {/* Right Side Form */}
+        <div className="w-full lg:w-1/2 p-10 flex flex-col justify-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-1">Welcome Back!</h2>
+          <div className="w-12 h-1 bg-[#4A15F4] rounded mb-6"></div>
+          <p className="text-gray-500 mb-8">Login to your admin account</p>
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div className="relative">
               <input
                 type="email"
-                required
-                className="form-control custom-placeholder"
-                placeholder="admin@gmail.com"
+                placeholder="admin@example.com"
+                className="w-full py-3 px-4 pr-12 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#4A15F4]"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
+              <FaUserAlt className="absolute top-3.5 right-4 text-gray-400" />
             </div>
 
-            <div className="input-container">
-              <TbLockPassword className="input-icon" />
+            <div className="relative">
               <input
-                type="password"
-                required
-                className="form-control custom-placeholder"
-                placeholder="* * * * * * * * *"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                className="w-full py-3 px-4 pr-12 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#4A15F4]"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
+              <div className="absolute top-3.5 right-4 text-gray-400 cursor-pointer" onClick={togglePassword}>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
             </div>
 
-            <button type="submit" className="btn-submit">
-              {loading ? "Loading..." : "L O G I N "}
-            </button>
-            {error && <div className="error-message">{error}</div>}
-          </form>
-          <div style={{ textAlign: "end" }} className="additional-links">
             <button
-              style={{
-                color: "#4A15F4",
-                textDecoration: "none",
-                backgroundColor: "transparent",
-                border: "none",
-                fontSize: "16px",
-                cursor: "pointer",
-              }}
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#4A15F4] via-[#2c2f8d] to-[#6B1A6B] text-white font-semibold hover:opacity-90 transition"
             >
-              Forgot Password?
+              {loading ? "Loading..." : "Login"}
             </button>
-          </div>
-          <div className="flex flex-col items-center pt-0">
-            <Link
-              to="/Privacy"
-              style={{
-                alignItems: "center",
-                alignContent: "center",
-                paddingTop: "20%",
-                color: "#888",
-                textDecoration: "none",
-              }}
-              className="text-gray-500 mt-4"
-            >
-              Privacy Policy
-            </Link>
-          </div>
+
+            {error && <div className="text-red-600 text-sm">{error}</div>}
+
+            <div className="text-right text-sm">
+              <button className="text-[#4A15F4] hover:underline">Forgot password?</button>
+            </div>
+
+            <div className="text-center text-xs text-gray-400 pt-10">
+              <Link to="/Privacy" className="hover:underline">
+                Privacy Policy
+              </Link>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   );
 };
+
+export default Login;

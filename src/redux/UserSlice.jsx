@@ -39,6 +39,13 @@ const userSlice = createSlice({
     token: getTokenFromLocalStorage(),
     error: null,
   },
+  reducers: {
+    logout: (state) => {
+      state.token = null;
+      localStorage.removeItem('token');
+    },
+  },
+  
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -58,5 +65,5 @@ const userSlice = createSlice({
       });
   },
 });
-
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;
