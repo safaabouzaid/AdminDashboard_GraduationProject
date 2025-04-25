@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
+
 import { Privacy } from "./Pages/Privacy";
 import Dashboard from './Pages/Dashboard';
 import MainDash from "./components/MainDash/MainDash";
@@ -31,8 +31,8 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline /> 
+  
+      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -51,7 +51,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>
+
   );
 }
 
