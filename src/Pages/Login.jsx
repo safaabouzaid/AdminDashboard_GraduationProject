@@ -49,7 +49,7 @@ const Login = () => {
         {/* Right Side Form */}
         <div className="w-full lg:w-1/2 p-10 flex flex-col justify-center">
           <h2 className="text-3xl font-bold text-gray-800 mb-1">Welcome Back!</h2>
-          <div className="w-12 h-1 bg-[#4A15F4] rounded mb-6"></div>
+          <div className="w-12 h-1 bg-indigo-500 rounded mb-6"></div>
           <p className="text-gray-500 mb-8">Login to your admin account</p>
 
           <form onSubmit={handleLogin} className="space-y-5">
@@ -81,7 +81,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#4A15F4] via-[#2c2f8d] to-[#6B1A6B] text-white font-semibold hover:opacity-90 transition"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold hover:opacity-90 transition"
             >
               {loading ? "Loading..." : "Login"}
             </button>
@@ -89,7 +89,7 @@ const Login = () => {
             {error && <div className="text-red-600 text-sm">{error}</div>}
 
             <div className="text-right text-sm">
-              <button className="text-[#4A15F4] hover:underline">Forgot password?</button>
+              <button className="text-purple-600 hover:underline">Forgot password?</button>
             </div>
 
             <div className="text-center text-xs text-gray-400 pt-10">

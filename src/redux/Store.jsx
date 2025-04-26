@@ -5,6 +5,7 @@ import companyReducer from "./CompanySlice";
 import adsReducer from "./AdsSlice"
 import searchReducer from './SearchSlice';
 import dashboardStatsReducer from './dashboardStatsSlice'
+import complaintReducer from "./complaintSlice";
 export const store = configureStore({
   reducer: {
      user: userReducer,
@@ -12,7 +13,8 @@ export const store = configureStore({
      company: companyReducer,
      ads: adsReducer,
      search: searchReducer,
-     dashboardStats: dashboardStatsReducer
+     dashboardStats: dashboardStatsReducer,
+     complaint: complaintReducer,
 
   },
 });

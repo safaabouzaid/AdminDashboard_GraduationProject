@@ -1,112 +1,38 @@
 import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
 export const Privacy = () => {
-  const theme = useTheme();
   return (
-    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <div className="h-screen flex flex-col">
       
-      <AppBar
-        position="fixed"
-        sx={{background: `linear-gradient(to left, #4A15F4, #2c2f8d, #6B1A6B)`}}      
-      >
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, textAlign: { xs: "center", sm: "left" } }}
-          >
-            Forsa-Tech
-          </Typography>
-          <Button
-            component={Link}
-            to="/login"
-            color="inherit"
-            
-          >
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <header className="fixed w-full bg-gradient-to-l from-purple-600 via-indigo-500 to-blue-500">
+        <div className="flex items-center justify-between p-2 ">
+          <button className="text-white text-2xl">
+            <i className="fas fa-bars"></i>
+          </button>
+          <h1 className="text-white text-xl font-semibold mr-288">Forsa Tech</h1>
+          <Link to="/login">
+            <button className="text-white border-2 border-white py-1 px-4 rounded-md hover:bg-white hover:text-purple-600">
+              Login
+            </button>
+          </Link>
+        </div>
+      </header>
 
-      <Box
-        sx={{
-          marginTop: "64px",
-          flexGrow: 1,
-          overflowY: "auto",
-          padding: { xs: "10px", sm: "20px" },
-        }}
-      >
-        <Box
-          sx={{
-            maxWidth: "800px",
-            margin: "auto",
-            backgroundColor: "#ffffff",
-            borderRadius: "10px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            padding: { xs: "15px", sm: "20px" },
-          }}
-        >
-          <Typography
-            variant="h4"
-            align="center"
-            gutterBottom
-            sx={{
-              fontSize: { xs: "1.5rem", sm: "2rem" },
-              color: theme.palette.text.primary,
-              marginBottom: "20px",
-            }}
-          >
-            Privacy Policy
-          </Typography>
-          <Typography
-            variant="body1"
-            paragraph
-            sx={{ fontSize: { xs: "0.9rem", sm: "1rem" }, textAlign: "left" }}
-          >
-            This privacy policy explains how we handle data in the admin
-            dashboard. By using this system, you agree to these rules:
-          </Typography>
-          <ul
-            style={{ lineHeight: "1.8", fontSize: "0.9rem", textAlign: "left" }}
-          >
-            <li>
-              <strong>Data Usage:</strong>The data in this system is only for
-              work purposes.
-            </li>
-            <li>
-              <strong>Admin Responsibilities:</strong>Admins must keep user data
-              safe and private.
-            </li>
-            <li>
-              <strong>Security:</strong> We use tools to protect user data.
-            </li>
-            <li>
-              <strong>Restrictions:</strong> Misusing data or accessing it
-              without permission will have consequences.
-            </li>
+      <main className="mt-16 flex-grow overflow-auto px-4 sm:px-8 py-6">
+        <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
+          <h2 className="text-center text-3xl text-gray-800 mb-6">Privacy Policy</h2>
+          <p className="text-lg text-gray-700 mb-4">
+            This privacy policy explains how we handle data in the admin dashboard. By using this system, you agree to these rules:
+          </p>
+          <ul className="list-disc pl-6 text-gray-700">
+            <li><strong>Data Usage:</strong> The data in this system is only for work purposes.</li>
+            <li><strong>Admin Responsibilities:</strong> Admins must keep user data safe and private.</li>
+            <li><strong>Security:</strong> We use tools to protect user data.</li>
+            <li><strong>Restrictions:</strong> Misusing data or accessing it without permission will have consequences.</li>
           </ul>
-
-          
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </main>
+    </div>
   );
-
 };
