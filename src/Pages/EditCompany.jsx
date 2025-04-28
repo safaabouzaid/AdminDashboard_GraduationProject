@@ -12,8 +12,10 @@ const EditCompany = ({ open, onClose, company }) => {
     employees: '',
     address: '',
     website: '',
+    email: '',
     logo: null,
   });
+  
 
   useEffect(() => {
     if (company) {
@@ -23,10 +25,12 @@ const EditCompany = ({ open, onClose, company }) => {
         employees: company.employees || '',
         address: company.address || '',
         website: company.website || '',
+        email: company.email || '',
         logo: null,
       });
     }
   }, [company]);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,7 +77,7 @@ const EditCompany = ({ open, onClose, company }) => {
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="w-full text-sm file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200"
+              className="w-full text-sm file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200"
             />
           </div>
 
@@ -87,6 +91,18 @@ const EditCompany = ({ open, onClose, company }) => {
                 className={`w-full p-2 rounded-md border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 border-gray-300'}`}
               />
             </div>
+
+            <div>
+  <label className="block mb-1 font-medium">Email</label>
+  <input
+    name="email"
+    type="email"
+    value={formData.email}
+    onChange={handleChange}
+    className={`w-full p-2 rounded-md border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 border-gray-300'}`}
+  />
+</div>
+
 
             <div>
               <label className="block mb-1 font-medium">Employees</label>
@@ -140,7 +156,7 @@ const EditCompany = ({ open, onClose, company }) => {
           </button>
           <button
             onClick={handleSubmit}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
             Save
           </button>

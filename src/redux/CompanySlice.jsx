@@ -68,6 +68,7 @@ export const addCompany = createAsyncThunk(
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("email", data.email);
+      
       formData.append("employees", data.employees);
       formData.append("address", data.address);
       formData.append("description", data.description);

@@ -1,93 +1,148 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FiHome } from "react-icons/fi";
-import { FaBuildingUser } from "react-icons/fa6";
-import { MdOutlinePolicy } from "react-icons/md";
-import { AiOutlineLogin, AiOutlineComment } from "react-icons/ai";
-import { useSelector } from 'react-redux';
-import './Sidebar.css'; 
-
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/UserSlice';
+import { FaSignOutAlt } from "react-icons/fa";
+import { 
+  FiHome, 
+  FiSettings,
+  FiDollarSign
+} from "react-icons/fi";
+import { 
+  FaBuilding,
+  FaRegBell,
+} from "react-icons/fa";
+import { 
+  MdOutlinePolicy,
+  MdOutlineContactSupport
+} from "react-icons/md";
+import { 
+  AiOutlinePlusCircle
+} from "react-icons/ai";
+import { BsShieldLock, BsPersonCircle } from "react-icons/bs";
 
-
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
-
-  const [tab, setTab] = useState('');
+  const { currentUser } = useSelector((state) => state.user);
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get('tab');
     if (tabFromUrl) {
-      setTab(tabFromUrl);
+      setActiveTab(tabFromUrl);
     }
   }, [location.search]);
 
   const menuItems = [
-    { icon: <FiHome />, label: 'Dashboard', tab: 'dashboard' },
-    { icon: <FaBuildingUser />, label: 'All Companies', tab: 'companies' },
-    { icon: <GroupAddIcon />, label: 'Add Company', tab: 'addcompany' },
-    { icon: <MdOutlinePolicy />, label: 'Ads', tab: 'ads' },
-    { icon: <AiOutlineComment />, label: 'Complaints', tab: 'complaints' },
-    { icon: <AiOutlineLogin />, label: 'Log out', tab: 'logout' },
+    { 
+      section: 'Main',
+      items: [
+        { icon: <FiHome />, label: 'Dashboard', tab: 'dashboard' },
+        { icon: <FaBuilding />, label: 'Companies', tab: 'companies' },
+        { icon: <AiOutlinePlusCircle />, label: 'Add Company', tab: 'addcompany' },
+      ]
+    },
+    { 
+      section: 'Management',
+      items: [
+        { icon: <MdOutlinePolicy />, label: 'Ads', tab: 'ads' },
+      ]
+    },
+    { 
+      section: 'Subscription',
+      items: [
+        { icon: <FiDollarSign />, label: 'Plans', tab: 'plans' },
+        { icon: <BsShieldLock />, label: 'Policies', tab: 'policies' },
+        { icon: <FaRegBell />, label: 'Notifications', tab: 'notifications' },
+      ]
+    },
+    { 
+      section: 'Support',
+      items: [
+        { icon: <MdOutlineContactSupport />, label: 'Complaints', tab: 'complaints' },
+        { icon: <FiSettings />, label: 'Settings', tab: 'settings' },
+      ]
+    }
   ];
 
-  
-  
-  const dispatch = useDispatch();
-  
-  const handleTabClick = (tabName) => {
-    if (tabName === 'logout') {
-      dispatch(logout());
-      navigate('/login');  
-      return;
-    }
-  
-    navigate(`/dashboard?tab=${tabName}`);
-    setTab(tabName);
+  const handleTabChange = (tab) => {
+    navigate(`/dashboard?tab=${tab}`);
+    setActiveTab(tab);
   };
 
-  
-
-
-
-
-
-
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
 
   return (
-<div
-  className={`    h-full ml-4
-    lg:w-full sm:w-1/1 md:w-50 
-    min-h-screen p-3 sm:p-4 lg:p-5 
-    shadow-lg rounded-xl transition-all 
-    ${theme === "dark" 
-      ? "bg-gradient-to-br from-gray-950 via-gray-800 to-gray-900 text-white" 
-      : "bg-gradient-to-r from-purple-100 to-white text-black"}
-  `}
->
-  <div className="space-y-3 sm:space-y-4">
-    {menuItems.map((item, index) => (
-      <div
-        key={index}
-        className={`flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-2 sm:py-3 rounded-xl mt-4 sm:mt-6 
-          transition duration-300 cursor-pointer
-          ${tab === item.tab 
-            ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md" 
-            : "hover:bg-gray-200 dark:hover:bg-gray-400"}`}
-        onClick={() => handleTabClick(item.tab)}
-      >
-        <div className="text-xl sm:text-2xl">{item.icon}</div>
-        <span className="text-sm sm:text-base">{item.label}</span>
+    <div className={`flex flex-col h-screen w-64 fixed left-0 top-0 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"} border-r ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
+      
+    {/* User Profile */}
+    <div className={`pl-15 pt-15 border-b ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
+      <div className="flex items-center">
+        <BsPersonCircle className={`text-2xl ${theme === "dark" ? "text-indigo-400" : "text-indigo-600"}`} />
+        <div className="ml-3">
+          <p className="font-medium">{currentUser?.name || 'Admin'}</p>
+          <p className={`text-xs ${theme === "dark" ? "text-gray-300" : "text-gray-500"}`}>
+            {currentUser?.role || 'Administrator'}
+          </p>
+        </div>
       </div>
-    ))}
-  </div>
-</div>
+    </div>
 
+    {/* Scrollable Menu */}
+    <div className="flex-1 overflow-y-auto py-4">
+      {menuItems.map((section, index) => (
+        <div key={index} className="mb-6 px-4">
+          <h3 className={`text-xs uppercase font-semibold mb-3 ${theme === "dark" ? "text-gray-300" : "text-gray-500"}`}>
+            {section.section}
+          </h3>
+          <ul className="space-y-2">
+            {section.items.map((item) => (
+              <li key={item.tab}>
+                <button
+                  onClick={() => handleTabChange(item.tab)}
+                  className={`w-full flex items-center px-3 py-2 rounded-lg transition-all ${
+                    activeTab === item.tab
+                      ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md"
+                      : theme === "dark"
+                        ? "hover:bg-gray-700 text-white"
+                        : "hover:bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  <span className="mr-3">{item.icon}</span>
+                  <span>{item.label}</span>
+                  {item.tab === 'notifications' && (
+                    <span className="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full">3</span>
+                  )}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+      {/* Fixed Bottom Section */}
+      <div className={`p-4 border-t ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
+        {/* Settings Button */}
+        
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className={`w-full flex items-center justify-center py-2 px-4 rounded-lg font-medium transition-all bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-md`}
+        >
+          <FaSignOutAlt className="mr-2" />
+          Log Out
+        </button>
+      </div>
+    </div>
   );
 };
 

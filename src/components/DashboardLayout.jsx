@@ -36,7 +36,7 @@ const DashboardLayout = ({ children }) => {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 ml-0 sm:ml-56 lg:ml-64 h-[calc(100vh-4.5rem)] overflow-y-auto p-4">
+        <div className="flex-1  sm:ml-56 lg:ml-68 h-[calc(100vh-4.5rem)] overflow-y-auto ">
           {children}
         </div>
       </div>
