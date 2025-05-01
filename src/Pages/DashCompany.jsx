@@ -28,11 +28,12 @@ export default function DashCompany() {
   }, [dispatch]);
 
   // Filter companies based on search term
-  const filteredCompanies = companies.filter(company => 
+  const filteredCompanies = (companies || []).filter(company => 
     (company.name && company.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (company.address && company.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (company.website && company.website.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+  
   
 
   // Pagination logic

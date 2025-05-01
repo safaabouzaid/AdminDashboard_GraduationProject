@@ -242,7 +242,7 @@ export default function AddCompany() {
                           <p className={`pl-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>or drag and drop</p>
                         </div>
                         <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-                          PNG, JPG, JPEG up to 5MB
+                          PNG
                         </p>
                       </>
                     )}

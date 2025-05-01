@@ -16,6 +16,8 @@ export const getAllComplaints = createAsyncThunk(
       const response = await axios.get("/admin-dash/complaints/", {
         headers: {
           Authorization: `Bearer ${token}`,
+          'ngrok-skip-browser-warning': 'true', 
+          Accept: 'application/json'
         },
       });
       return response.data;
@@ -42,6 +44,8 @@ export const updateComplaintStatus = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${token}`, 
+            'ngrok-skip-browser-warning': 'true', 
+            Accept: 'application/json'
           },
         }
       );

@@ -7,7 +7,12 @@ export const fetchCompanies = createAsyncThunk(
   'company/fetchCompanies',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_URL, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+          Accept: 'application/json',
+        },
+      });
       return response.data.data;
     } catch (error) {
       console.error("Error fetching companies:", error);
@@ -27,7 +32,9 @@ export const deleteCompany = createAsyncThunk(
 
       await axios.delete(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/${id}/delete/`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'ngrok-skip-browser-warning': 'true', 
+          Accept: 'application/json'
         }
       });
       
@@ -51,6 +58,8 @@ export const updateCompany = createAsyncThunk(
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'ngrok-skip-browser-warning': 'true', 
+            Accept: 'application/json'
           },
         }
       );
@@ -82,6 +91,8 @@ export const addCompany = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
+          'ngrok-skip-browser-warning': 'true', 
+          Accept: 'application/json'
         },
       });
 
@@ -97,7 +108,12 @@ export const fetchCompanyProfile = createAsyncThunk(
   'company/fetchCompanyProfile',
   async (id, thunkAPI) => {
     try {
-      const response = await axios.get(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/company/${id}/profile/`);
+      const response = await axios.get(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/company/${id}/profile/`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+          Accept: 'application/json',
+        },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(

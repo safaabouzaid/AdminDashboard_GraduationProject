@@ -8,8 +8,10 @@ export const loginUser = createAsyncThunk(
   async (userCredential) => {
     try {
       const { data } = await axios.post("https://f4d8-149-36-51-14.ngrok-free.app/api/admin/login/", userCredential, {
-        headers: {
+        headers: {      
           "Content-Type": "application/json",
+          'ngrok-skip-browser-warning': 'true',
+          Accept: 'application/json',
         },
       });
 

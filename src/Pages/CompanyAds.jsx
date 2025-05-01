@@ -125,29 +125,49 @@ const AdminAds = () => {
       {loading && <p className="text-center text-lg text-gray-800 dark:text-gray-200">Loading...</p>}
       {error && <p className="text-center text-red-500 dark:text-red-400">{error}</p>}
     
-      <ul className="space-y-4">
-  {ads.length > 0 ? (
-    ads.map((ad, index) => {
-      return (
-        <li key={index} className={`border p-6 rounded-lg shadow-md 
-          transition-all ease-in-out duration-200 hover:scale-105 
-          ${theme === 'dark' ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 bg-white text-gray-900'}`}>
-          <h3 className="text-xl font-semibold mb-2">{ad.title}</h3>
-          <p className="text-gray-700 dark:text-gray-300">{ad.description}</p>
-          <span className="text-sm text-gray-500 dark:text-gray-400">Company: {ad.company}</span>
-          <div className="mt-2 ml-350">
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {Array.isArray(ads) && ads.length > 0 ? (
+    ads.map((ad, index) => (
+      <li 
+        key={index} 
+        className={`${cardBg} border rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105`}
+      >
+        <div className="p-6">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-xl font-semibold">{ad.title}</h3>
+              <p className={`mt-1 text-sm ${
+                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                {ad.company_name || ad.company} 
+              </p>
+            </div>
+            <span className={`text-xs px-2 py-1 rounded-full ${
+              theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'
+            }`}>
+              #{index + 1}
+            </span>
+          </div>
+          <p className={`mb-4 ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            {ad.description}
+          </p>
+          <div className="flex justify-end">
             <button
               onClick={() => handleDelete(ad.id)}
-              className="bg-red-600 text-white px-5 py-2 rounded-md shadow-md 
-                hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all ease-in-out duration-200">
+              className="bg-red-600 text-white px-4 py-2 rounded-md shadow hover:bg-red-700 transition-colors duration-200"
+            >
               Delete Ad
             </button>
           </div>
-        </li>
-      );
-    })
+        </div>
+      </li>
+    ))
   ) : (
-    <p className="text-center text-lg text-gray-500 dark:text-gray-400">No ads found.</p>
+    <div className="col-span-full text-center py-10">
+      <p className={`text-lg ${noAdColor}`}>No ads found.</p>
+    </div>
   )}
 </ul>
 

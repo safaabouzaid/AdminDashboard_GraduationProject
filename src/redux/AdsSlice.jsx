@@ -11,6 +11,8 @@ export const fetchAds = createAsyncThunk(
       const response = await axios.get(API_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'ngrok-skip-browser-warning': 'true',
+          Accept: 'application/json',
         },
       });
       return Array.isArray(response.data) ? response.data : response.data.data;
@@ -44,6 +46,8 @@ export const deleteAd = createAsyncThunk(
       const response = await axios.delete(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/ads/${adId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'ngrok-skip-browser-warning': 'true',
+          Accept: 'application/json',
         },
       });
 

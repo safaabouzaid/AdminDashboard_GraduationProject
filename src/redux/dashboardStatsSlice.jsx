@@ -2,18 +2,26 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchDashboardStats = createAsyncThunk(
-  "dashboard/fetchStats",
+  'dashboard/fetchStats',
   async (_, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/dashboard/stats/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const token = localStorage.getItem('token'); 
+      console.log("TOKEN USED:", token);
+      const response = await axios.get(
+        'https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/dashboard/stats/',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'ngrok-skip-browser-warning': 'true', 
+            Accept: 'application/json'
+          }
+        }
+      );
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Failed to fetch dashboard statistics");
+      console.error('ERROR RESPONSE:', error.response?.data || error.message);
+      return thunkAPI.rejectWithValue('Failed to fetch dashboard statistics');
+      
     }
   }
 );

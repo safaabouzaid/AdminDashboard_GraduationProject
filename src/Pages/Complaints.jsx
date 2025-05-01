@@ -47,49 +47,53 @@ const AdminComplaints = () => {
             </tr>
           </thead>
           <tbody className={theme === "dark" ? "text-gray-100" : "text-gray-800"}>
-          {complaints.length > 0 ? (
+          {Array.isArray(complaints) && complaints.length > 0 ? (
   complaints.map((complaint) => (
-    <tr key={complaint.id}
-                  className={`border-b ${theme === "dark" ? "border-gray-700" : "border-gray-200"} hover:!bg-gray-500 dark:hover:!bg-gray-300 transition`}
-                >
-                  <td className="px-4 py-2">{complaint.user.email}</td>
-                  <td className="px-4 py-2">{complaint.title}</td>
-                  <td className="px-4 py-2">{complaint.description}</td>
-                  <td className="px-4 py-2">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-medium ${statusColor[complaint.status]}`}
-                    >
-                      {complaint.status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-2">
-                    {new Date(complaint.created_at).toLocaleString()}
-                  </td>
-                  <td className="px-4 py-2 flex flex-col md:flex-row items-center justify-center gap-2">
-                    {complaint.status !== "resolved" && (
-                      <button
-                        onClick={() => handleStatusChange(complaint.id, "resolved")}
-                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition text-xs"
-                      >
-                        Mark Resolved
-                      </button>
-                    )}
-                     <a
-    href={`mailto:${complaint.user.email}`}
-    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition text-xs"
-  >
-    Send Email
-  </a>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="text-center text-gray-500 py-6">
-                  No complaints found.
-                </td>
-              </tr>
-            )}
+    <tr
+      key={complaint.id}
+      className={`border-b ${
+        theme === "dark" ? "border-gray-700" : "border-gray-200"
+      } hover:!bg-gray-500 dark:hover:!bg-gray-300 transition`}
+    >
+      <td className="px-4 py-2">{complaint.user.email}</td>
+      <td className="px-4 py-2">{complaint.title}</td>
+      <td className="px-4 py-2">{complaint.description}</td>
+      <td className="px-4 py-2">
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-medium ${statusColor[complaint.status]}`}
+        >
+          {complaint.status}
+        </span>
+      </td>
+      <td className="px-4 py-2">
+        {new Date(complaint.created_at).toLocaleString()}
+      </td>
+      <td className="px-4 py-2 flex flex-col md:flex-row items-center justify-center gap-2">
+        {complaint.status !== "resolved" && (
+          <button
+            onClick={() => handleStatusChange(complaint.id, "resolved")}
+            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition text-xs"
+          >
+            Mark Resolved
+          </button>
+        )}
+        <a
+          href={`mailto:${complaint.user.email}`}
+          className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition text-xs"
+        >
+          Send Email
+        </a>
+      </td>
+    </tr>
+  ))
+) : (
+  <tr>
+    <td colSpan="6" className="text-center text-gray-500 py-6">
+      No complaints found.
+    </td>
+  </tr>
+)}
+
           </tbody>
         </table>
       </div>
