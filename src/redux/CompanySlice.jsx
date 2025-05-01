@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/admin-dash/companies/';
+const API_URL = 'https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/';
 
 export const fetchCompanies = createAsyncThunk(
   'company/fetchCompanies',
@@ -25,7 +25,7 @@ export const deleteCompany = createAsyncThunk(
         return thunkAPI.rejectWithValue('Authentication token is missing');
       }
 
-      await axios.delete(`http://localhost:8000/admin-dash/companies/${id}/delete/`, {
+      await axios.delete(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/${id}/delete/`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -45,7 +45,7 @@ export const updateCompany = createAsyncThunk(
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/admin-dash/companies/${id}/update/`,
+        `https://f4d8-149-36-51-14.ngrok-free.app/companies/${id}/update/`,
         data, // data هي FormData هون
         {
           headers: {
@@ -78,7 +78,7 @@ export const addCompany = createAsyncThunk(
         formData.append("logo", data.logo);
       }
 
-      const response = await axios.post('http://localhost:8000/admin-dash/companies/create/', formData, {
+      const response = await axios.post('https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/create/', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -97,7 +97,7 @@ export const fetchCompanyProfile = createAsyncThunk(
   'company/fetchCompanyProfile',
   async (id, thunkAPI) => {
     try {
-      const response = await axios.get(`http://localhost:8000/admin-dash/company/${id}/profile/`);
+      const response = await axios.get(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/company/${id}/profile/`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(

@@ -36,8 +36,8 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Companies</p>
-              <h3 className="text-3xl font-bold mt-1">{stats?.num_companies || 0}</h3>
-              <p className="text-xs text-green-500 mt-1">+12% this month</p>
+              <h3 className="text-3xl font-bold mt-1">+{stats?.num_companies || 0}</h3>
+              <p className="text-xs text-green-500 mt-1">+{stats?.new_companies || 0}% this month</p>
             </div>
             <div className={`p-3 rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-blue-100'}`}>
               <Users className="text-blue-500" size={24} />
@@ -50,8 +50,12 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Top Hiring Company</p>
-              <h3 className="text-xl font-bold mt-1 truncate">{stats?.most_hiring_company || 'N/A'}</h3>
-              <p className="text-xs text-gray-500 mt-1">{stats?.most_hiring_company_count || 0} jobs</p>
+              <h3 className="text-xl font-bold mt-1 truncate">
+                {stats?.most_hiring_company || 'No data available'}
+              </h3>
+              <p className="text-xs text-gray-500 mt-1">
+                {stats?.most_hiring_company_count || 0} jobs
+              </p>
             </div>
             <div className={`p-3 rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-green-100'}`}>
               <TrendingUp className="text-green-500" size={24} />
@@ -106,7 +110,7 @@ const Dashboard = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500">Active Jobs</p>
-              <h3 className="text-lg font-semibold">{additionalStats.activeJobs}</h3>
+              <h3 className="text-lg font-semibold">{stats?.active_jobs || 0}</h3>
             </div>
           </div>
         </div>
@@ -119,7 +123,7 @@ const Dashboard = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500">Premium Members</p>
-              <h3 className="text-lg font-semibold">42</h3>
+              <h3 className="text-lg font-semibold">{stats?.premium_members || 0}</h3>
             </div>
           </div>
         </div>
@@ -132,23 +136,25 @@ const Dashboard = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500">Avg. Company Size</p>
-              <h3 className="text-lg font-semibold">150-500</h3>
+              <h3 className="text-lg font-semibold">
+                {stats?.avg_company_size ? Math.round(stats.avg_company_size) : 'N/A'}
+              </h3>
             </div>
           </div>
         </div>
 
         {/* New Companies */}
         <div className={`p-4 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-          <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-purple-50'}`}>
-              <Users size={18} className="text-purple-400" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-500">New Companies</p>
-              <h3 className="text-lg font-semibold">+{additionalStats.newCompaniesThisMonth}</h3>
-            </div>
-          </div>
-        </div>
+         <div className="flex items-center gap-3">
+           <div className={`p-2 rounded-full ${theme === 'dark' ? 'bg-gray-700' : 'bg-purple-50'}`}>
+             <Users size={18} className="text-purple-400" />
+           </div>
+           <div>
+             <p className="text-xs text-gray-500">New Companies</p>
+             <h3 className="text-lg font-semibold">+{stats?.new_companies || 0}</h3>
+           </div>
+         </div>
+       </div>
 
       </div>
 
@@ -162,31 +168,31 @@ const Dashboard = () => {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
             <LineChart data={lineData}>
-  <CartesianGrid strokeDasharray="3 3" />
-  <XAxis 
-    dataKey="month" 
-    tick={{ fill: theme === 'dark' ? '#fff' : '#666' }}
-  />
-  <YAxis 
-    tick={{ fill: theme === 'dark' ? '#fff' : '#666' }}
-  />
-  <Tooltip 
-    contentStyle={{
-      background: theme === 'dark' ? '#333' : '#fff',
-      borderColor: theme === 'dark' ? '#555' : '#ddd'
-    }}
-  />
-  <Line 
-    type="monotone" 
-    dataKey="count" 
-    stroke="#8884d8" 
-    activeDot={{ r: 8 }} 
-  />
-</LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis 
+              dataKey="month" 
+              tick={{ fill: theme === 'dark' ? '#fff' : '#666' }}
+            />
+            <YAxis 
+              tick={{ fill: theme === 'dark' ? '#fff' : '#666' }}
+            />
+            <Tooltip 
+              contentStyle={{
+                background: theme === 'dark' ? '#333' : '#fff',
+                borderColor: theme === 'dark' ? '#555' : '#ddd'
+              }}
+            />
+            <Line 
+              type="monotone" 
+              dataKey="count" 
+              stroke="#8884d8" 
+              activeDot={{ r: 8 }} 
+            />
+          </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+          
         {/* Pie Chart */}
         <div className={`p-6 rounded-xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
           <h2 className="text-lg font-semibold mb-4">Job Category Distribution</h2>

@@ -7,7 +7,7 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userCredential) => {
     try {
-      const { data } = await axios.post("http://localhost:8000/api/admin/login/", userCredential, {
+      const { data } = await axios.post("https://f4d8-149-36-51-14.ngrok-free.app/api/admin/login/", userCredential, {
         headers: {
           "Content-Type": "application/json",
         },

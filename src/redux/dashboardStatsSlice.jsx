@@ -6,7 +6,7 @@ export const fetchDashboardStats = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8000/admin-dash/dashboard/stats/", {
+      const response = await axios.get("https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/dashboard/stats/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

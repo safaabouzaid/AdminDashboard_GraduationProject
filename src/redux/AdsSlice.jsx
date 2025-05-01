@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/admin-dash/ads/';
+const API_URL = 'https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/ads/';
 
 export const fetchAds = createAsyncThunk(
   'ads/fetchAds',
@@ -41,7 +41,7 @@ export const deleteAd = createAsyncThunk(
   async (adId, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`http://localhost:8000/admin-dash/ads/${adId}/`, {
+      const response = await axios.delete(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/ads/${adId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

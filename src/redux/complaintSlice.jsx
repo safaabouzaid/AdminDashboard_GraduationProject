@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://f4d8-149-36-51-14.ngrok-free.app";
 
 export const getAllComplaints = createAsyncThunk(
   "complaints/getAll",
