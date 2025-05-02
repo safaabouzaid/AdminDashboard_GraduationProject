@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import config from '../../src/config';
 
-const API_URL = 'https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/';
+const API_URL = `${config.API_BASE_URL}admin-dash/companies/`;  
 
 export const fetchCompanies = createAsyncThunk(
   'company/fetchCompanies',
@@ -30,7 +31,7 @@ export const deleteCompany = createAsyncThunk(
         return thunkAPI.rejectWithValue('Authentication token is missing');
       }
 
-      await axios.delete(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/${id}/delete/`, {
+      await axios.delete(`${API_URL}${id}/delete/`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'ngrok-skip-browser-warning': 'true', 
@@ -38,7 +39,6 @@ export const deleteCompany = createAsyncThunk(
         }
       });
       
-
       return id;
     } catch (error) {
       console.error("Error deleting company:", error);
@@ -52,8 +52,8 @@ export const updateCompany = createAsyncThunk(
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `https://f4d8-149-36-51-14.ngrok-free.app/companies/${id}/update/`,
-        data, // data هي FormData هون
+        `${API_URL}${id}/update/`,
+        data,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -69,6 +69,7 @@ export const updateCompany = createAsyncThunk(
     }
   }
 );
+
 export const addCompany = createAsyncThunk(
   'company/addCompany',
   async (data, thunkAPI) => {
@@ -77,7 +78,6 @@ export const addCompany = createAsyncThunk(
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("email", data.email);
-      
       formData.append("employees", data.employees);
       formData.append("address", data.address);
       formData.append("description", data.description);
@@ -87,7 +87,7 @@ export const addCompany = createAsyncThunk(
         formData.append("logo", data.logo);
       }
 
-      const response = await axios.post('https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/create/', formData, {
+      const response = await axios.post(`${API_URL}create/`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -103,12 +103,12 @@ export const addCompany = createAsyncThunk(
   }
 );
 
-// Company Profileee
+// Company Profile
 export const fetchCompanyProfile = createAsyncThunk(
   'company/fetchCompanyProfile',
   async (id, thunkAPI) => {
     try {
-      const response = await axios.get(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/company/${id}/profile/`, {
+      const response = await axios.get(`${API_URL}${id}/profile/`, {
         headers: {
           'ngrok-skip-browser-warning': 'true',
           Accept: 'application/json',
@@ -133,8 +133,6 @@ const companySlice = createSlice({
     loadingProfile: false,
     errorProfile: null,
   },
-
-
   
   extraReducers: (builder) => {
     builder
@@ -181,7 +179,6 @@ const companySlice = createSlice({
         state.loadingProfile = false;
         state.errorProfile = action.payload;
       });      
-      
   },
 });
 

@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import config from '../../src/config';  
 
-const API_URL = 'https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/companies/';
-
+const API_URL = `${config.API_BASE_URL}admin-dash/companies/`; 
 
 export const searchCompanies = createAsyncThunk(
   'search/searchCompanies',

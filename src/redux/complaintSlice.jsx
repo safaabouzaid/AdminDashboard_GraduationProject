@@ -1,8 +1,8 @@
-// import
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import config from '../../src/config'; 
 
-axios.defaults.baseURL = "https://f4d8-149-36-51-14.ngrok-free.app";
+axios.defaults.baseURL = config.API_BASE_URL; 
 
 export const getAllComplaints = createAsyncThunk(
   "complaints/getAll",
@@ -11,7 +11,6 @@ export const getAllComplaints = createAsyncThunk(
     if (!token) {
       return thunkAPI.rejectWithValue("Authentication token is missing");
     }
-
     try {
       const response = await axios.get("/admin-dash/complaints/", {
         headers: {
@@ -27,8 +26,6 @@ export const getAllComplaints = createAsyncThunk(
   }
 );
 
-
-// Update complaint status
 export const updateComplaintStatus = createAsyncThunk(
   "complaints/updateStatus",
   async ({ id, status }, thunkAPI) => {
@@ -56,7 +53,6 @@ export const updateComplaintStatus = createAsyncThunk(
   }
 );
 
-
 const complaintSlice = createSlice({
   name: "complaints",
   initialState: {
@@ -75,8 +71,6 @@ const complaintSlice = createSlice({
         state.loading = false;
         state.complaints = action.payload.complaints;
       })
-      
-      
       .addCase(getAllComplaints.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
@@ -95,8 +89,7 @@ const complaintSlice = createSlice({
       .addCase(updateComplaintStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      })
-    
+      });
   }
 });
 

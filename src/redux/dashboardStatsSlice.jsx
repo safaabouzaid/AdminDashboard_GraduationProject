@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import config from '../../src/config'; 
 
 export const fetchDashboardStats = createAsyncThunk(
   'dashboard/fetchStats',
@@ -8,7 +9,7 @@ export const fetchDashboardStats = createAsyncThunk(
       const token = localStorage.getItem('token'); 
       console.log("TOKEN USED:", token);
       const response = await axios.get(
-        'https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/dashboard/stats/',
+        `${config.API_BASE_URL}admin-dash/dashboard/stats/`, 
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -21,7 +22,6 @@ export const fetchDashboardStats = createAsyncThunk(
     } catch (error) {
       console.error('ERROR RESPONSE:', error.response?.data || error.message);
       return thunkAPI.rejectWithValue('Failed to fetch dashboard statistics');
-      
     }
   }
 );

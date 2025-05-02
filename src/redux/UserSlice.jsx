@@ -1,13 +1,12 @@
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import config from '../../src/config'; 
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userCredential) => {
     try {
-      const { data } = await axios.post("https://f4d8-149-36-51-14.ngrok-free.app/api/admin/login/", userCredential, {
+      const { data } = await axios.post(`${config.API_BASE_URL}api/admin/login/`, userCredential, {
         headers: {      
           "Content-Type": "application/json",
           'ngrok-skip-browser-warning': 'true',
@@ -20,7 +19,6 @@ export const loginUser = createAsyncThunk(
         console.log('Token stored in localStorage:', localStorage.getItem('token'));
       }
 
-
       return data;
     } catch (error) {
       console.error("Error during login:", error);
@@ -28,7 +26,6 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
-
 
 const getTokenFromLocalStorage = () => {
   return localStorage.getItem("token") || null;
@@ -67,5 +64,6 @@ const userSlice = createSlice({
       });
   },
 });
+
 export const { logout } = userSlice.actions;
 export default userSlice.reducer;

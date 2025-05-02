@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import config from '../../src/config';
 
-const API_URL = 'https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/ads/';
+const API_URL = `${config.API_BASE_URL}admin-dash/ads/`;    
 
 export const fetchAds = createAsyncThunk(
   'ads/fetchAds',
@@ -27,7 +28,7 @@ export const addAd = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(API_URL, data, {
+      const response = await axios.post(API_URL, data, {  
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,19 +39,19 @@ export const addAd = createAsyncThunk(
     }
   }
 );
+
 export const deleteAd = createAsyncThunk(
   'ads/deleteAd',
   async (adId, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`https://f4d8-149-36-51-14.ngrok-free.app/admin-dash/ads/${adId}/`, {
+      const response = await axios.delete(`${API_URL}${adId}/`, { 
         headers: {
           Authorization: `Bearer ${token}`,
           'ngrok-skip-browser-warning': 'true',
           Accept: 'application/json',
         },
       });
-
       return adId;
     } catch (error) {
       console.log("Delete Ad Error:", error.response?.data || error.message);
@@ -58,10 +59,6 @@ export const deleteAd = createAsyncThunk(
     }
   }
 );
-
-
-
-  
 
 const adsSlice = createSlice({
   name: 'ads',
@@ -102,7 +99,6 @@ const adsSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });      
-      
   },
 });
 
