@@ -63,7 +63,7 @@ const Header = ({ onSidebarToggle }) => {
             </button>
 
             <Link
-              to="/"
+              to="https://forsatech.netlify.app/"
               className="flex items-center space-x-1 group"
             >
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
