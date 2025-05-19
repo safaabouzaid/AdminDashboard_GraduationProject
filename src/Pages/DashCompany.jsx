@@ -153,7 +153,9 @@ export default function DashCompany() {
                           <img
                             src={company.logo ? `http://localhost:8000${company.logo}` : defaultLogo}
                             alt={company.name}
-                            className="h-12 w-12 rounded-md object-cover"
+                            className="h-12 w-12 max-w-[8rem] max-h-[8rem] rounded-xl object-contain border-4 border-white shadow-lg"
+                            
+
                           />
                         </div>
                       </td>

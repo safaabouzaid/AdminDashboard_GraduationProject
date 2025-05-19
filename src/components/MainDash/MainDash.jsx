@@ -7,6 +7,7 @@ import AddCompany from "../../Pages/AddCompany";
 import Dashboard from "../../Pages/Dashboard";
 import CompanyAds from "../../Pages/CompanyAds";
 import Complaints from "../../Pages/Complaints"
+import Plans from "../../Pages/Plans"
 
 const MainDash = () => {
   const { theme } = useSelector((state) => state.theme);
@@ -26,6 +27,7 @@ const MainDash = () => {
       {tab === "dashboard" && <Dashboard />}
       {tab === "ads" && <CompanyAds />}
       {tab === "complaints" && <Complaints/>}
+      {tab === "plans" && <Plans/>}
 
     </div>
   );

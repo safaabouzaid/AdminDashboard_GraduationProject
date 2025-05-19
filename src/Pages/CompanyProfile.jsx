@@ -90,7 +90,7 @@ const CompanyProfile = () => {
               <img
                 src={`http://localhost:8000${company.logo}`}
                 alt={`${company.name} logo`}
-                className="w-32 h-32 rounded-xl object-cover border-4 border-white shadow-lg"
+                  className="w-32 h-32 max-w-[8rem] max-h-[8rem] rounded-xl object-contain border-4 border-white shadow-lg"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = "https://via.placeholder.com/150?text=No+Logo";

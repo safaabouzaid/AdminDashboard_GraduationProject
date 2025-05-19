@@ -104,11 +104,15 @@ export const addCompany = createAsyncThunk(
 );
 
 // Company Profile
+
+const PROFILE_URL = `${config.API_BASE_URL}admin-dash/company/`; 
+
 export const fetchCompanyProfile = createAsyncThunk(
   'company/fetchCompanyProfile',
   async (id, thunkAPI) => {
     try {
-      const response = await axios.get(`${API_URL}${id}/profile/`, {
+      const response = await axios.get(`${PROFILE_URL}${id}/profile/`, {
+
         headers: {
           'ngrok-skip-browser-warning': 'true',
           Accept: 'application/json',
