@@ -134,8 +134,22 @@ const CompanyProfile = () => {
                   <span className={theme === "dark" ? "text-gray-300" : "text-gray-800"}>
                     Key Information
                   </span>
+
                 </h2>
+
+                
+
                 <div className={`space-y-4 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                  {company.subscription_plan && (
+                
+  <div className="flex items-start">
+    <FaBuilding className="flex-shrink-0 mt-1 mr-3 text-indigo-500" />
+    <div>
+      <h3 className="font-medium">Subscription Plan</h3>
+      <p className="font-semibold">{company.subscription_plan.name}</p>
+    </div>
+  </div>
+)}
                   <div className="flex items-start">
                     <FaEnvelope className="flex-shrink-0 mt-1 mr-3 text-indigo-500" />
                     <div>

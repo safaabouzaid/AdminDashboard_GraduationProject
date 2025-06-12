@@ -83,6 +83,7 @@ export const addCompany = createAsyncThunk(
       formData.append("description", data.description);
       formData.append("website", data.website);
 
+
       if (data.logo) {
         formData.append("logo", data.logo);
       }

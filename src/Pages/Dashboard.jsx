@@ -3,6 +3,8 @@ import { TrendingUp, Users, Briefcase, DollarSign, FileText } from "lucide-react
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardStats } from "../redux/dashboardStatsSlice";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const Dashboard = () => {
   const { theme } = useSelector((state) => state.theme);
@@ -10,6 +12,28 @@ const Dashboard = () => {
   const { stats, loading } = useSelector((state) => state.dashboardStats);
   const lineData = stats?.line_chart_data || [];
   const pieData = stats?.pie_chart_data || [];
+  const handleExportToExcel = () => {
+    const reportData = {
+      'Companies': stats?.num_companies || 0,
+      'New Companies This Month': stats?.new_companies || 0,
+      'Top Hiring Company': stats?.most_hiring_company || 'N/A',
+      'Top Hiring Jobs Count': stats?.most_hiring_company_count || 0,
+      'Most Demanded Jobs': stats?.most_demanded_jobs?.slice(0, 3).join(', ') || 'N/A',
+      'Highest Paying Job': stats?.highest_paying_job?.title || 'N/A',
+      'Highest Salary': stats?.highest_paying_job?.salary || 'N/A',
+      'Active Jobs': stats?.active_jobs || 0,
+      'Premium Members': stats?.premium_members || 0,
+      'Avg. Company Size': stats?.avg_company_size || 'N/A'
+    };
+  
+  const worksheet = XLSX.utils.json_to_sheet([reportData]);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Dashboard Report");
+
+  const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+  const data = new Blob([excelBuffer], { type: "application/octet-stream" });
+  saveAs(data, "Dashboard_Report.xlsx");
+};
 
   useEffect(() => {
     dispatch(fetchDashboardStats());
@@ -27,7 +51,15 @@ const Dashboard = () => {
 
   return (
     <div className={`p-6 min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-800'}`}>
-      
+      <div className="flex justify-end mb-4">
+  <button
+    onClick={handleExportToExcel}
+    className="px-2 py-2 bg-green-500 hover:bg-green-600 text-white rounded-xl shadow"
+  >
+    Generate Report
+  </button>
+</div>
+
       {/* Main Statistics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         
@@ -194,18 +226,36 @@ const Dashboard = () => {
                   </div>
           
         {/* Pie Chart */}
-        <div className={`p-6 rounded-xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className={`min-w-[350px] p-6 rounded-xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+
           <h2 className="text-lg font-semibold mb-4">Job Category Distribution</h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={pieData} dataKey="value" nameKey="name" outerRadius={80} fill="#8884d8" label>
-                  {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Legend />
-              </PieChart>
+        <Pie
+          data={pieData}
+          dataKey="value"
+          nameKey="name"
+          outerRadius={80}
+          fill="#8884d8"
+          label
+        >
+          {pieData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Legend
+  layout="horizontal"
+  verticalAlign="bottom"
+  align="center"
+  wrapperStyle={{
+    whiteSpace: 'normal',
+    fontSize: '10px', // أو 12px مثلاً
+    textAlign: 'center'
+  }}
+/>
+
+      </PieChart>
             </ResponsiveContainer>
           </div>
         </div>

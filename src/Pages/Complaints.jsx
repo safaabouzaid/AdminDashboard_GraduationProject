@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllComplaints, updateComplaintStatus } from "../redux/complaintSlice";
 
@@ -11,6 +11,8 @@ const AdminComplaints = () => {
   const dispatch = useDispatch();
   const { complaints, loading, error } = useSelector((state) => state.complaint);
   const { theme } = useSelector((state) => state.theme);
+  const [filterStatus, setFilterStatus] = useState("all");
+
 
   useEffect(() => {
     dispatch(getAllComplaints());
@@ -28,9 +30,37 @@ const AdminComplaints = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   const list = complaints || [];
+const filteredComplaints = complaints
+  .filter((complaint) =>
+    filterStatus === "all" ? true : complaint.status === filterStatus
+  )
+  .sort((a, b) => {
+    if (filterStatus === "all") {
+      if (a.status === "new" && b.status !== "new") return -1;
+      if (a.status !== "new" && b.status === "new") return 1;
+    }
+    return 0;
+  });
+
 
   return (
     <div className={`p-6 ml-4 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-800"}`}>
+      <div className="mb-4">
+  <label htmlFor="filter" className="mr-2 font-medium">
+    Filter by Status:
+  </label>
+  <select
+    id="filter"
+    value={filterStatus}
+    onChange={(e) => setFilterStatus(e.target.value)}
+    className="border px-2 py-1 rounded"
+  >
+    <option value="all">All</option>
+    <option value="new">New</option>
+    <option value="resolved">Resolved</option>
+  </select>
+</div>
+
       <h2 className={`text-2xl font-bold mb-4 ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
         Complaints Management
       </h2>
@@ -47,8 +77,8 @@ const AdminComplaints = () => {
             </tr>
           </thead>
           <tbody className={theme === "dark" ? "text-gray-100" : "text-gray-800"}>
-          {Array.isArray(complaints) && complaints.length > 0 ? (
-  complaints.map((complaint) => (
+          {Array.isArray(filteredComplaints) && filteredComplaints.length > 0 ? (
+  filteredComplaints.map((complaint) => (
     <tr
       key={complaint.id}
       className={`border-b ${

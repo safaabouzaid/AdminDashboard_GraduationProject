@@ -7,17 +7,20 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@iconscout/react-unicons": "^2.2.4",
-    "@mui/material": "^5.15.15",
     "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
     "@mui/system": "^5.15.15",
     "@react-icons/all-files": "^4.1.0",
+    "@react-pdf/renderer": "^4.3.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@tailwindcss/cli": "^4.0.7",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
+    "file-saver": "^2.0.5",
     "flowbite-react": "^0.11.5",
     "framer-motion": "^12.9.2",
+    "html2canvas": "^1.4.1",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.487.0",
     "react": "^18.2.0",
@@ -30,7 +33,8 @@
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.2",
     "styled-components": "^6.1.15",
-    "web-vitals": "^4.2.4"
+    "web-vitals": "^4.2.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "dev": "vite",
@@ -56,7 +60,6 @@
     ]
   },
   "devDependencies": {
-    
     "@tailwindcss/postcss": "^4.0.7",
     "@tailwindcss/vite": "^4.0.0",
     "@vitejs/plugin-react": "^4.2.1",

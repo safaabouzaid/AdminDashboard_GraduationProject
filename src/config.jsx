@@ -1,6 +1,6 @@
 // src/config.js
 const config = {
-    API_BASE_URL: 'https://9ca3-212-8-243-133.ngrok-free.app/'
+    API_BASE_URL: 'http://localhost:8000/'
   };
   
   export default config;

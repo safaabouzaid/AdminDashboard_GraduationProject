@@ -80,7 +80,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`flex flex-col h-screen w-64 fixed left-0 top-0 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"} border-r ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
+    <div className={`flex flex-col h-screen w-68 fixed left-0 top-0 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"} border-r ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
       
     {/* User Profile */}
     <div className={`pl-15 pt-15 border-b ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
