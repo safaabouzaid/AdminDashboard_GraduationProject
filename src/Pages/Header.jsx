@@ -41,41 +41,41 @@ const Header = ({ onSidebarToggle }) => {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 shadow-sm backdrop-blur-lg ${
-        theme === "dark"
-          ? "bg-gray-900/95 border-b border-gray-800 text-white"
-          : "bg-white/95 border-b border-gray-100 text-gray-900"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-12">
-          {/* Left section - Logo and mobile menu */}
-          <div className="flex items-center space-x-3"> 
-            <button
-              onClick={onSidebarToggle}
-              className={`p-1.5 rounded-md transition-all ${
-                theme === "dark"
-                  ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                  : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-              } sm:hidden`}
-            >
-              <Menu className="w-4 h-4" /> 
-            </button>
+  className={`sticky top-0 z-50 w-full pl-9 pt-2 pr-9 transition-all duration-300 shadow-sm backdrop-blur-lg h-12 ${
+    theme === "dark"
+      ? "bg-gray-900/95 border-b border-gray-800 text-white"
+      : "bg-white/95 border-b border-gray-100 text-gray-900"
+  }`}
+>
+  <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6"> {/* تقليل padding الجانبي */}
+    <div className="flex items-center justify-between h-full">
+      {/* Left section - Logo and mobile menu */}
+      <div className="flex items-center space-x-2.5"> {/* تقليل المسافة بين العناصر */}
+        <button
+          onClick={onSidebarToggle}
+          className={`p-1 rounded-md transition-all ${
+            theme === "dark"
+              ? "text-gray-400 hover:text-white hover:bg-gray-800"
+              : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+          } sm:hidden`}
+        >
+          <Menu className="w-3.5 h-3.5" /> {/* تصغير الأيقونة */}
+        </button>
 
-            <Link
-              to="https://forsatech.netlify.app/"
-              className="flex items-center space-x-1 group"
-            >
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
-                Forsa
-              </span>
-              <span className={`text-lg font-bold ${
-                theme === "dark" ? "text-white" : "text-gray-800"
-              } group-hover:text-indigo-600 transition-colors`}>
-                Tech
-              </span>
-            </Link>
-          </div>
+        <Link
+          to="https://forsatech.netlify.app/"
+          className="flex items-center space-x-1 group"
+        >
+          <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
+            Forsa
+          </span>
+          <span className={`text-base font-bold ${
+            theme === "dark" ? "text-white" : "text-gray-800"
+          } group-hover:text-indigo-600 transition-colors`}>
+            Tech
+          </span>
+        </Link>
+      </div>
 
           {/* Search */}
           <div className="flex-1 max-w-2xl mx-3 relative" ref={searchRef}> 

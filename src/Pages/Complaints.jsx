@@ -44,7 +44,7 @@ const filteredComplaints = complaints
 
 
   return (
-    <div className={`p-6 ml-4 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-800"}`}>
+    <div className={`p-6 ml-4 mr-4 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-800"}`}>
       <div className="mb-4">
   <label htmlFor="filter" className="mr-2 font-medium">
     Filter by Status:

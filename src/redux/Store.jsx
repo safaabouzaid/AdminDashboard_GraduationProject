@@ -6,6 +6,11 @@ import adsReducer from "./AdsSlice"
 import searchReducer from './SearchSlice';
 import dashboardStatsReducer from './dashboardStatsSlice'
 import complaintReducer from "./complaintSlice";
+import planReducer from './planSlice';
+import AllplanReducer from './AllplansSlice';
+import subscriptionRequestsReducer from './subscriptionRequestsSlice'
+
+
 export const store = configureStore({
   reducer: {
      user: userReducer,
@@ -15,6 +20,9 @@ export const store = configureStore({
      search: searchReducer,
      dashboardStats: dashboardStatsReducer,
      complaint: complaintReducer,
+     plans: planReducer,
+     allplans:AllplanReducer,
+     subscriptionRequests:subscriptionRequestsReducer,
 
   },
 });

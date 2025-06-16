@@ -71,7 +71,7 @@ export default function DashCompany() {
   const goToNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
 
   return (
-    <div className={`p-6 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-800"}`}>
+    <div className={`p-6  ml-4 mr-4 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-800"}`}>
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
@@ -101,12 +101,16 @@ export default function DashCompany() {
           
           {/* Add Company Button */}
           <button
-            onClick={() => navigate("/dashboard?tab=addcompany")}
-            className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${theme === "dark" ? "gradient-to-r from-indigo-500 to-indigo-600  hover:bg-indigo-700" : "bg-indigo-500 hover:bg-indigo-600"} text-white`}
-          >
-            <HiOutlinePlus className="w-5 h-5" />
-            <span>Add Company</span>
-          </button>
+  onClick={() => navigate("/dashboard?tab=addcompany")}
+  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors 
+    ${theme === "dark" 
+      ? "bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700" 
+      : "bg-indigo-500 hover:bg-indigo-600"} 
+    text-white`}
+>
+  <HiOutlinePlus className="w-5 h-5" />
+  <span>Add Company</span>
+</button>
         </div>
       </div>
 

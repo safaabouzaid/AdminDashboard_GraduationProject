@@ -70,7 +70,7 @@ const AdminAds = () => {
   const noAdColor = theme === 'dark' ? 'text-gray-400' : 'text-gray-500';
 
   return (
-    <div className={`p-6 min-h-screen transition-colors duration-300 
+    <div className={`p-6 ml-4 mr-4 min-h-screen  transition-colors duration-300 
       ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
     
       <h2 className="text-3xl font-semibold mb-6 text-center 

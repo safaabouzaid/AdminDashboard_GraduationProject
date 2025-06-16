@@ -63,7 +63,7 @@ export default function AddCompany() {
   };
 
   return (
-    <div className={`min-h-screen py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-300 ${theme === "dark" ? "bg-gray-900" : "bg-gray-50"}`}>
+    <div className={`min-h-screen  px-4  ml-4 mr-4 sm:px-6 lg:px-8 transition-colors duration-300`}>
       <div className="max-w-6xl mx-auto">
         <div className={`rounded-2xl shadow-xl overflow-hidden transition-all duration-300 ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
           {/* Form Header */}
