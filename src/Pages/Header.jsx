@@ -47,10 +47,10 @@ const Header = ({ onSidebarToggle }) => {
       : "bg-white/95 border-b border-gray-100 text-gray-900"
   }`}
 >
-  <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6"> {/* تقليل padding الجانبي */}
+  <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6"> 
     <div className="flex items-center justify-between h-full">
       {/* Left section - Logo and mobile menu */}
-      <div className="flex items-center space-x-2.5"> {/* تقليل المسافة بين العناصر */}
+      <div className="flex items-center space-x-2.5"> 
         <button
           onClick={onSidebarToggle}
           className={`p-1 rounded-md transition-all ${
@@ -59,7 +59,7 @@ const Header = ({ onSidebarToggle }) => {
               : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
           } sm:hidden`}
         >
-          <Menu className="w-3.5 h-3.5" /> {/* تصغير الأيقونة */}
+          <Menu className="w-3.5 h-3.5" />
         </button>
 
         <Link
