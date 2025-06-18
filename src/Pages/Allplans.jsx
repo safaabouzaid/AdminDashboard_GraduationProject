@@ -173,8 +173,8 @@ const Allplans = () => {
 
       {/* Plans Grid */}
       <div className="grid gap-30 md:grid-cols-2 ">
-        {plans && plans.length > 0 ? (
-          plans.map(plan => (
+        {Array.isArray(plans) && plans.length > 0 ? (
+  plans.map(plan => (
             <div 
               key={plan.id} 
               className={`rounded-xl shadow-lg mt-0 overflow-hidden transition-all duration-300 hover:shadow-xl ${
