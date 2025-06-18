@@ -59,7 +59,7 @@ const Header = ({ onSidebarToggle }) => {
               : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
           } sm:hidden`}
         >
-          <Menu className="w-3.5 h-3.5" />
+          <Menu className="w-3.5 h-3.5" /> 
         </button>
 
         <Link
