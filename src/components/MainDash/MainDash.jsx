@@ -8,7 +8,7 @@ import Dashboard from "../../Pages/Dashboard";
 import CompanyAds from "../../Pages/CompanyAds";
 import Complaints from "../../Pages/Complaints"
 import Plans from "../../Pages/Plans"
-import { Policy } from "../../Pages/policy";
+import { Policy } from "../../Pages/Policy";
 import Allplans  from "../../Pages/Allplans";
 import SubscriptionRequests  from "../../Pages/SubscriptionRequests";
 
