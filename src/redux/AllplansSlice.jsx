@@ -54,6 +54,33 @@ export const updatePlan = createAsyncThunk(
   }
 );
 
+export const deletePlan = createAsyncThunk(
+  'plans/deletePlan',
+  async (planId, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
+      await axios.delete(
+        `${config.API_BASE_URL}admin-dash/plans/delete/${planId}/`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
+          }
+        }
+      );
+
+      return planId; 
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 const AllplansSlice = createSlice({
   name: 'plans',
   initialState: {
@@ -92,8 +119,21 @@ const AllplansSlice = createSlice({
       .addCase(updatePlan.rejected, (state, action) => {
         state.updateStatus = 'failed';
         state.error = action.payload || 'Failed to update plan';
-      });
+      })
+      .addCase(deletePlan.pending, (state) => {
+      state.updateStatus = 'loading';
+      state.error = null;
+    })
+    .addCase(deletePlan.fulfilled, (state, action) => {
+      state.updateStatus = 'succeeded';
+      state.plans = state.plans.filter(plan => plan.id !== action.payload);
+    })
+    .addCase(deletePlan.rejected, (state, action) => {
+      state.updateStatus = 'failed';
+      state.error = action.payload || 'Failed to delete plan';
+    });
   },
+  
 });
 
 export default AllplansSlice.reducer;

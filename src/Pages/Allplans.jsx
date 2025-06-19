@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlans,updatePlan } from '../redux/AllplansSlice';
+import { fetchPlans,updatePlan,deletePlan } from '../redux/AllplansSlice';
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
@@ -13,6 +13,8 @@ const Allplans = () => {
   
   // States
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [planToDelete, setPlanToDelete] = useState(null);
   const [currentPlan, setCurrentPlan] = useState(null);
   const [updateError, setUpdateError] = useState(null);
   const [formData, setFormData] = useState({
@@ -23,6 +25,7 @@ const Allplans = () => {
     price: '',
     is_active: true
   });
+
 
   useEffect(() => {
     dispatch(fetchPlans());
@@ -83,7 +86,6 @@ const Allplans = () => {
     console.error('Update error:', error);
     setUpdateError(error.message || 'Failed to update plan. Please try again.');
     
-    // إذا كان الخطأ متعلقاً بالمصادقة
     if (error.message.includes('401')) {
       setUpdateError('Session expired. Please login again.');
       dispatch(logout());
@@ -92,6 +94,32 @@ const Allplans = () => {
   }
 };
 
+//delete
+const openDeleteConfirm = (plan) => {
+    setPlanToDelete(plan);
+    setIsDeleteConfirmOpen(true);
+  };
+
+  const closeDeleteConfirm = () => {
+    setIsDeleteConfirmOpen(false);
+    setPlanToDelete(null);
+  };
+
+  const handleDeletePlan = async () => {
+    if (!planToDelete) return;
+    
+    try {
+      const resultAction = await dispatch(deletePlan(planToDelete.id));
+      if (deletePlan.fulfilled.match(resultAction)) {
+        closeDeleteConfirm();
+      } else {
+        throw new Error(resultAction.payload || 'Failed to delete plan');
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+      setUpdateError(error.message || 'Failed to delete plan. Please try again.');
+    }
+  };
   const togglePlanStatus = async (plan) => {
   try {
     const resultAction = await dispatch(updatePlan({
@@ -100,14 +128,12 @@ const Allplans = () => {
     }));
 
     if (updatePlan.fulfilled.match(resultAction)) {
-      // التحديث تم بنجاح (سيتم التعامل معه في الـ reducer)
     } else {
       console.error('Update failed:', resultAction.payload);
     }
   } catch (error) {
     console.error('Failed to toggle plan status:', error);
     
-    // عرض رسالة خطأ للمستخدم
     setUpdateError(error.message || 'Failed to update plan status');
   }
 };
@@ -225,13 +251,16 @@ const Allplans = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                       </svg>
                     </button>
-                    <button className={`transition-colors duration-200 ${
-                      theme === 'dark' ? 'text-gray-400 hover:text-rose-400' : 'text-gray-400 hover:text-rose-600'
-                    }`}>
-                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    </button>
+                    <button 
+  onClick={() => openDeleteConfirm(plan)}
+  className={`transition-colors duration-200 ${
+    theme === 'dark' ? 'text-gray-400 hover:text-rose-400' : 'text-gray-400 hover:text-rose-600'
+  }`}
+>
+  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  </svg>
+</button>
                   </div>
                 </div>
 
@@ -523,6 +552,78 @@ const Allplans = () => {
                 </button>
               </div>
             </form>
+          </Dialog.Panel>
+        </Transition.Child>
+      </div>
+    </div>
+  </Dialog>
+</Transition>
+{/* Delete Confirmation Modal */}
+<Transition appear show={isDeleteConfirmOpen} as={Fragment}>
+  <Dialog as="div" className="relative z-20" onClose={closeDeleteConfirm}>
+    <Transition.Child
+      as={Fragment}
+      enter="ease-out duration-300"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="ease-in duration-200"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <div className={`fixed inset-0 ${theme === 'dark' ? 'bg-black bg-opacity-50' : 'bg-gray-500 bg-opacity-75'}`} />
+    </Transition.Child>
+
+    <div className="fixed inset-0 overflow-y-auto">
+      <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          <Dialog.Panel className={`w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all ${
+            theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+          }`}>
+            <Dialog.Title
+              as="h3"
+              className={`text-lg font-medium leading-6 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}
+            >
+              Confirm Deletion
+            </Dialog.Title>
+            
+            <div className="mt-4">
+              <p className={`text-sm ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
+              }`}>
+                Are you sure you want to delete the "{planToDelete?.name}" plan? This action cannot be undone.
+              </p>
+            </div>
+
+            <div className="mt-6 flex justify-end space-x-3">
+              <button
+                type="button"
+                onClick={closeDeleteConfirm}
+                className={`px-4 py-2 text-sm font-medium rounded-md ${
+                  theme === 'dark'
+                    ? 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeletePlan}
+                className="px-4 py-2 text-sm font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
+              >
+                Delete Plan
+              </button>
+            </div>
           </Dialog.Panel>
         </Transition.Child>
       </div>

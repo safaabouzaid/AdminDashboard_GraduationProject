@@ -71,7 +71,7 @@ const Sidebar = () => {
       section: 'Support',
       items: [
         { icon: <MdOutlineContactSupport />, label: 'Complaints', tab: 'complaints' },
-        { icon: <FiSettings />, label: 'Settings', tab: 'settings' },
+        //{ icon: <FiSettings />, label: 'Settings', tab: 'settings' },
       ]
     }
   ];
@@ -89,7 +89,7 @@ const Sidebar = () => {
   return (
     <div className={`flex flex-col h-screen w-60 fixed left-0 top-0 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-800"} border-r ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
       
-      {/* User Profile - معدل */}
+      {/* User Profile  */}
       <div className={`pt-15 pl-4  pb-3 border-b ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
         <div className="flex items-center">
           <BsPersonCircle className={`text-xl ${theme === "dark" ? "text-indigo-400" : "text-indigo-600"}`} />
@@ -102,7 +102,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Scrollable Menu - معدل */}
+      {/* Scrollable Menu  */}
       <div className="flex-1 overflow-y-auto py-3">
         {menuItems.map((section, index) => (
           <div key={index} className="mb-4 px-3">
@@ -135,7 +135,7 @@ const Sidebar = () => {
         ))}
       </div>
 
-      {/* Fixed Bottom Section - معدل */}
+      {/* Fixed Bottom Section  */}
       <div className={`p-3 border-t ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
         <button
           onClick={handleLogout}

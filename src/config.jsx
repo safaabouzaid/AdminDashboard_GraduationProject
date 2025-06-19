@@ -1,6 +1,11 @@
+
+  
+
+
+const isLocal = window.location.hostname === 'localhost';
+
 const config = {
-    API_BASE_URL: 'https://2f88-185-132-133-96.ngrok-free.app/'
-  };
-  
-  export default config;
-  
+  API_BASE_URL: isLocal ? 'http://127.0.0.1:8000/' : 'https://1f64-89-39-107-197.ngrok-free.app/',
+};
+
+export default config;
