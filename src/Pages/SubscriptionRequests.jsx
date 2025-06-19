@@ -13,6 +13,8 @@ import {
 
 const SubscriptionRequestsPage = () => {
   const dispatch = useDispatch();
+  const { theme } = useSelector((state) => state.theme);
+
   
   const subscriptionRequests = useSelector((state) => state.subscriptionRequests);
   const { requests = [], loading = false, error = null } = subscriptionRequests || {};
@@ -79,7 +81,8 @@ const SubscriptionRequestsPage = () => {
 
   return (
     <div className="min-h-screen p-6 ">
-      <div className="bg-white rounded-xl shadow-md p-6">
+      <div className={`rounded-xl shadow-md p-6 transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-500 bg-clip-text text-transparent">
@@ -94,7 +97,8 @@ const SubscriptionRequestsPage = () => {
         ) : (
           <div className="border border-indigo-200 rounded-lg overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-indigo-600">
+              <thead className={`${theme === 'dark' ? 'bg-indigo-800' : 'bg-indigo-600'}`}>
+
                 <tr>
                   {['Company', 'Requested Plan', 'Status', 'Request Date', 'Actions'].map((header) => (
                     <th 
@@ -106,12 +110,11 @@ const SubscriptionRequestsPage = () => {
                   ))}
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className={`${theme === 'dark' ? 'bg-gray-900 divide-gray-700' : 'bg-white divide-gray-200'}`}>
+
                 {requests.map((request) => (
-                  <tr 
-                    key={request.id} 
-                    className="hover:bg-gray-50 even:bg-gray-50"
-                  >
+                  <tr key={request.id} className={`hover:${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'} even:${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-medium">
@@ -186,12 +189,12 @@ const SubscriptionRequestsPage = () => {
         {/* Details Dialog */}
         {selectedRequest && (
           <div className="fixed inset-0   bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className="bg-white  bg-opacity-80  rounded-xl w-full max-w-2xl overflow-hidden">
+            <div className={`  bg-opacity-80  rounded-xl w-full max-w-2xl overflow-hidden ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
               <div className="bg-indigo-600 text-white px-6 py-4 font-bold text-lg">
                 Request Details
               </div>
               <div className="p-6">
-                <div className="flex items-center mb-6 p-4 bg-gray-50 rounded-lg">
+                <div className={`flex items-center mb-6 p-4  rounded-lg ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
                   <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6">
                     {selectedRequest.company_name?.charAt(0) || 'C'}
                   </div>
@@ -232,10 +235,10 @@ const SubscriptionRequestsPage = () => {
                   />
                 </div>
               </div>
-              <div className="px-6 py-3 bg-gray-50 flex justify-end">
+              <div className={`px-6 py-3 flex justify-end${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
                 <button 
                   onClick={closeDetails}
-                  className="text-indigo-600 font-bold px-4 py-2 rounded-lg hover:bg-indigo-50"
+                  className="text-indigo-600 font-bold px-4 ml-140 py-2 rounded-lg hover:bg-indigo-50"
                 >
                   Close
                 </button>
@@ -247,7 +250,7 @@ const SubscriptionRequestsPage = () => {
         {/* Confirmation Dialog */}
         {confirmDialog.open && (
           <div className="fixed inset-0  bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className={`bg-white rounded-xl p-6 max-w-md w-full border-2 ${confirmDialog.action === 'approve' ? 'border-indigo-300' : 'border-red-500'}`}>
+            <div className={`${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} rounded-xl p-6 max-w-md w-full border-2 ${confirmDialog.action === 'approve' ? 'border-indigo-300' : 'border-red-500'}`}>
               <h3 className="text-lg font-bold mb-4">Confirm Action</h3>
               <p className="mb-6">
                 {`Are you sure you want to ${confirmDialog.action} this request?`}
@@ -294,33 +297,31 @@ const SubscriptionRequestsPage = () => {
   );
 };
 
-// مكون مساعد لعرض تفاصيل البطاقة
 const DetailCard = ({ title, value, color, status }) => {
+  const { theme } = useSelector((state) => state.theme);
+
   const getStatusClass = (status) => {
     switch (status) {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
       case 'approved': return 'bg-green-100 text-green-800';
       case 'rejected': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return theme === 'dark' ? 'bg-gray-800 text-gray-200' : 'bg-gray-100 text-gray-800';
     }
   };
 
   return (
-    <div className={`p-4 rounded-lg bg-white shadow-sm border-l-4 ${color}`}>
-      <p className="text-sm text-gray-500 mb-2">
-        {title}
-      </p>
+    <div className={`p-4 rounded-lg shadow-sm border-l-4 ${color} ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
+      <p className="text-sm text-gray-500 mb-2">{title}</p>
       {status ? (
         <span className={`px-2 py-1 text-xs font-bold rounded-full ${getStatusClass(status)}`}>
           {value}
         </span>
       ) : (
-        <p className="font-medium">
-          {value}
-        </p>
+        <p className="font-medium">{value}</p>
       )}
     </div>
   );
 };
+
 
 export default SubscriptionRequestsPage;

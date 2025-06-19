@@ -179,11 +179,11 @@ const openDeleteConfirm = (plan) => {
     </div>
   );
   return (
-    <div className={`max-w-7xl mx-auto px-3 rounded-2xl sm:px-6 lg:px-8 py-1  min-h-screen ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+    <div className={`max-w-7xl mx-auto  mt-10 px-3 rounded-2xl sm:px-6 lg:px-8 py-1  ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
       {/* Admin Header Section */}
       <div className="sm:flex sm:items-center sm:justify-between  mb-2">
         <div>
-          <h1 className={`text-3xl mt-0 font-bold tracking-tight font-serif ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          <h1 className={`text-3xl mt-2 font-bold tracking-tight font-serif ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
             Plans Management
           </h1>
           <p className={`mt-2 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -198,12 +198,12 @@ const openDeleteConfirm = (plan) => {
       </div>
 
       {/* Plans Grid */}
-      <div className="grid gap-30 md:grid-cols-2 ">
-        {Array.isArray(plans) && plans.length > 0 ? (
-  plans.map(plan => (
-            <div 
-              key={plan.id} 
-              className={`rounded-xl shadow-lg mt-0 overflow-hidden transition-all duration-300 hover:shadow-xl ${
+      <div className="grid gap-6 md:grid-cols-2 mt-2" style={{gridAutoRows: '1fr'}}>
+  {Array.isArray(plans) && plans.length > 0 ? (
+    plans.map(plan => (
+      <div 
+        key={plan.id} 
+        className={`flex flex-col rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl ${
                 plan.name === 'free' 
                   ? theme === 'dark' 
                     ? 'border border-gray-700' 

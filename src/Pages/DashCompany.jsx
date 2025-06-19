@@ -7,6 +7,7 @@ import { FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight } from "
 import DeleteCompany from "./DeleteCompany";
 import EditCompany from "./EditCompany";
 import defaultLogo from "../assets/user1.jpeg";
+import config from "../config";
 
 export default function DashCompany() {
   const { theme } = useSelector((state) => state.theme);
@@ -155,12 +156,11 @@ export default function DashCompany() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex-shrink-0 h-12 w-12">
                           <img
-                            src={company.logo ? `http://localhost:8000${company.logo}` : defaultLogo}
-                            alt={company.name}
-                            className="h-12 w-12 max-w-[8rem] max-h-[8rem] rounded-xl object-contain border-4 border-white shadow-lg"
-                            
+  src={company.logo ? `${config.API_BASE_URL}${company.logo}` : defaultLogo}
+  alt={company.name}
+  className="h-12 w-12 object-contain rounded-xl"
+/>
 
-                          />
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
