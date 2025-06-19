@@ -88,7 +88,8 @@ const CompanyProfile = () => {
           <div className="flex flex-col md:flex-row items-center">
             <div className="flex-shrink-0 mb-8 md:mb-0 md:mr-10">
               <img
-                src={`http://localhost:8000${company.logo}`}
+                src={company.logo ? company.logo: defaultLogo}
+
                 alt={`${company.name} logo`}
                   className="w-32 h-32 max-w-[8rem] max-h-[8rem] rounded-xl object-contain border-4 border-white shadow-lg"
                 onError={(e) => {

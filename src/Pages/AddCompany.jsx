@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addCompany } from "../redux/CompanySlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+  import { uploadToCloudinary } from "../Pages/uploadToCloudinary"; 
 
 export default function AddCompany() {
   const dispatch = useDispatch();
@@ -33,11 +34,24 @@ export default function AddCompany() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    dispatch(addCompany(company))
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  try {
+    let logoUrl = "";
+
+    if (company.logo && typeof company.logo === "object") {
+      logoUrl = await uploadToCloudinary(company.logo);
+    }
+
+    const companyData = {
+      ...company,
+      logo: logoUrl,
+    };
+
+    dispatch(addCompany(companyData))
       .unwrap()
       .then(() => {
         toast.success("Company added successfully", {
@@ -56,11 +70,19 @@ export default function AddCompany() {
           autoClose: 5000,
           theme: theme === "dark" ? "dark" : "light",
         });
-      })
-      .finally(() => {
-        setIsSubmitting(false);
       });
-  };
+  } catch (error) {
+    console.error("Upload error:", error);
+    toast.error("Failed to upload logo.", {
+      position: "bottom-right",
+      autoClose: 5000,
+      theme: theme === "dark" ? "dark" : "light",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <div className={`min-h-screen  px-4  ml-4 mr-4 sm:px-6 lg:px-8 transition-colors duration-300`}>

@@ -123,7 +123,7 @@ export default function DashCompany() {
           </div>
         ) : error ? (
           <div className="p-8 text-center text-red-500">
-            <p>{error}</p>
+            <p>{typeof error === 'string' ? error : JSON.stringify(error)}</p>
           </div>
         ) : filteredCompanies.length > 0 ? (
           <>
@@ -156,10 +156,11 @@ export default function DashCompany() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex-shrink-0 h-12 w-12">
                           <img
-  src={company.logo ? `${config.API_BASE_URL}${company.logo}` : defaultLogo}
+  src={company.logo ? company.logo: defaultLogo}
   alt={company.name}
   className="h-12 w-12 object-contain rounded-xl"
 />
+
 
                         </div>
                       </td>

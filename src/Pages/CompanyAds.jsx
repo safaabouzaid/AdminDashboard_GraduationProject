@@ -7,18 +7,18 @@ import defaultLogo from "../assets/user1.jpeg";
 import config from '../config';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { uploadToCloudinary } from "../Pages/uploadToCloudinary"; 
 
 const AdminAds = () => {
   const { theme } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   const { ads, loading, error } = useSelector((state) => state.ads);
 
-  // اضفت مفتاح جديد للملف
   const [formData, setFormData] = useState({
     company_name: '',
     title: '',
     description: '',
-    ad_image: null,  // لحفظ الملف
+    ad_image: null,   
   });
 
   useEffect(() => {
@@ -35,20 +35,35 @@ const AdminAds = () => {
     }
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+const handleSubmit = async () => {
+  let imageUrl = "";
 
-  const data = new FormData();
-  data.append('company_name', formData.company_name);
-  data.append('title', formData.title);
-  data.append('description', formData.description);
   if (formData.ad_image) {
-    data.append('ad_image', formData.ad_image);
+    try {
+      imageUrl = await uploadToCloudinary(formData.ad_image);
+    } catch (err) {
+      console.error("Cloudinary Upload Error:", err);
+      toast.error("Failed to upload image to Cloudinary.");
+      return;
+    }
   }
 
-  dispatch(addAd(data))
+  const payload = {
+    company_name: formData.company_name,
+    title: formData.title,
+    description: formData.description,
+    ad_image: imageUrl || "",
+    company_logo: companyLogoUrl || "",
+  };
+
+  dispatch(addAd(payload))
     .then(() => {
-      setFormData({ company_name: '', title: '', description: '', ad_image: null });
+      setFormData({
+        company_name: "",
+        title: "",
+        description: "",
+        ad_image: null,
+      });
       dispatch(fetchAds());
       toast.success("Ad created successfully!");
     })
@@ -56,8 +71,6 @@ const handleSubmit = (e) => {
       toast.error("Failed to create the ad.");
     });
 };
-
-
   const handleDelete = (adId) => {
     dispatch(deleteAd(adId))
       .unwrap()
@@ -105,7 +118,6 @@ const handleSubmit = (e) => {
     className={`border p-3 rounded-md flex-grow min-w-[200px] ${inputBg} focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 ease-in-out`}
   />
 
-  {/* زر رفع الصورة */}
   <div className="flex items-center space-x-2 max-w-[250px] overflow-hidden">
     <label
       htmlFor="ad_image"
@@ -153,10 +165,11 @@ const handleSubmit = (e) => {
               {ad.ad_image && (
                 <div className="h-48 overflow-hidden">
                   <img
-  src={ad.ad_image ? `${config.API_BASE_URL}${ad.ad_image}` : defaultLogo}
+  src={ad.ad_image ? ad.ad_image : defaultLogo}
   alt={ad.title}
   className="w-full h-full object-cover"
 />
+
                 </div>
               )}
 
@@ -164,15 +177,13 @@ const handleSubmit = (e) => {
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center">
                     {ad.company_logo && (
-                      <img
+  <img
+    src={ad.company_logo}
+    alt={ad.company || ad.company_name}
+    className="w-12 h-auto rounded-full mr-3 object-contain"
+  />
+)}
 
-                        src={ad.company_logo  ? `http://localhost:8000${ad.company_logo}` : defaultLogo}
-
-                        
-                        alt={ad.company || ad.company_name}
-                        className="w-12 h-auto rounded-full mr-3 object-contain"
-                      />
-                    )}
                     <div>
                       <h3 className="text-xl font-semibold">{ad.title}</h3>
                       <p className={`mt-1 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
