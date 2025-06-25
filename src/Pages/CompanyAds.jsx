@@ -4,7 +4,6 @@ import { fetchAds, addAd, deleteAd } from "../redux/AdsSlice";
 import { toast, ToastContainer } from 'react-toastify';
 import defaultLogo from "../assets/user1.jpeg";
 
-import config from '../config';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { uploadToCloudinary } from "../Pages/uploadToCloudinary"; 
@@ -40,23 +39,32 @@ const handleSubmit = async () => {
 
   if (formData.ad_image) {
     try {
+
       imageUrl = await uploadToCloudinary(formData.ad_image);
+      if (!imageUrl) {
+        toast.error("No image URL returned from Cloudinary.");
+        return;
+      }
     } catch (err) {
       console.error("Cloudinary Upload Error:", err);
       toast.error("Failed to upload image to Cloudinary.");
       return;
     }
+  } else {
+    toast.error("Please select an image to upload.");
+    return;
   }
 
   const payload = {
     company_name: formData.company_name,
     title: formData.title,
     description: formData.description,
-    ad_image: imageUrl || "",
-    company_logo: companyLogoUrl || "",
+    ad_image: imageUrl,  
+    company_logo: "", 
   };
 
   dispatch(addAd(payload))
+    .unwrap()
     .then(() => {
       setFormData({
         company_name: "",
@@ -71,6 +79,7 @@ const handleSubmit = async () => {
       toast.error("Failed to create the ad.");
     });
 };
+
   const handleDelete = (adId) => {
     dispatch(deleteAd(adId))
       .unwrap()
