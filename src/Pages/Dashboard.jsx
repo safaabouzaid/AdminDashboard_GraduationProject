@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TrendingUp, Users, Briefcase, DollarSign, FileText, ChevronDown, ChevronUp } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardStats } from "../redux/dashboardStatsSlice";
 import * as XLSX from 'xlsx';
@@ -315,84 +315,79 @@ const Dashboard = () => {
           </div>
         </div>
         
-        {/* Pie Chart */}
-        {/* Pie Chart */}
+{/* Bar Chart for Job Categories */}
 <div className={`p-6 rounded-xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-  <div 
+  <div
     className="flex justify-between items-center cursor-pointer"
-    onClick={() => toggleCard('pieChart')}
+    onClick={() => toggleCard('barChart')}
   >
-    <h2 className="text-lg font-semibold">Job Category Distribution</h2>
-    {expandedCards['pieChart'] ? (
+    <h2 className="text-lg font-semibold">Job Category Breakdown</h2>
+    {expandedCards['barChart'] ? (
       <ChevronUp className="text-gray-500" />
     ) : (
       <ChevronDown className="text-gray-500" />
     )}
   </div>
 
-{/*PieChart*/}
-  <div className="h-64">
+  <div className="h-80">
     <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
-        <Pie
-          data={pieData}
-          dataKey="value"
-          nameKey="name"
-          outerRadius={80}
-          fill="#8884d8"
-          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-        >
-          {pieData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip 
-          formatter={(value) => [`${value} Jobs`, 'Count']}
+      <BarChart
+        data={[...pieData]
+          .sort((a, b) => b.value - a.value)
+          .slice(0, 20)
+        }
+        layout="vertical"
+        margin={{ top: 20, right: 30, left: 50, bottom: 20 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          type="number"
+          tick={{ fill: theme === 'dark' ? '#fff' : '#333' }}
+        />
+        <YAxis
+          type="category"
+          dataKey="name"
+          width={150}
+          tick={{ fill: theme === 'dark' ? '#fff' : '#333' }}
+        />
+        <Tooltip
           contentStyle={{
             background: theme === 'dark' ? '#333' : '#fff',
-            borderColor: theme === 'dark' ? '#555' : '#ddd'
+            borderColor: theme === 'dark' ? '#555' : '#ddd',
           }}
         />
-      </PieChart>
+        <Bar dataKey="value" fill="#4ade80" />
+      </BarChart>
     </ResponsiveContainer>
   </div>
 
-  {expandedCards['pieChart'] && (
-    <div className="mt-4 transition-all duration-300">
-      <div className="mt-4 overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className={`${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
-              <th className="p-2 text-left">Category</th>
-              <th className="p-2 text-right">Jobs</th>
-              <th className="p-2 text-right">Percentage</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pieData.map((entry, index) => (
-              <tr 
-                key={index} 
+  {expandedCards['barChart'] && (
+    <div className="mt-4 overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className={`${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+            <th className="p-2 text-left">Category</th>
+            <th className="p-2 text-right">Jobs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...pieData]
+            .sort((a, b) => b.value - a.value)
+            .map((entry, index) => (
+              <tr
+                key={index}
                 className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
               >
-                <td className="p-2 flex items-center">
-                  <span 
-                    className="w-3 h-3 rounded-full mr-2" 
-                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                  />
-                  {entry.name}
-                </td>
+                <td className="p-2">{entry.name}</td>
                 <td className="p-2 text-right">{entry.value}</td>
-                <td className="p-2 text-right">
-                  {((entry.value / pieData.reduce((sum, item) => sum + item.value, 0)) * 100).toFixed(1)}%
-                </td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
   )}
 </div>
+
 </div>
 
 

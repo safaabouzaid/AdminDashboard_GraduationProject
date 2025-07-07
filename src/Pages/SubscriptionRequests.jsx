@@ -85,10 +85,12 @@ const SubscriptionRequestsPage = () => {
 
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-500 bg-clip-text text-transparent">
+          <h1 className={`text-3xl font-bold bg-gradient-to-rbg-clip-text text-transparent ${theme === 'dark' ? 'text-white' : 'text-zinc-950'}`} >
             Subscription Requests
           </h1>
-        </div>
+        </div> 
+
+        
 
         {loading && !requests.length ? (
           <div className="flex justify-center mt-8">
@@ -97,7 +99,7 @@ const SubscriptionRequestsPage = () => {
         ) : (
           <div className="border border-indigo-200 rounded-lg overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className={`${theme === 'dark' ? 'bg-indigo-800' : 'bg-indigo-600'}`}>
+              <thead className={`${theme === 'dark' ? 'bg-indigo-500' : 'bg-indigo-500'}`}>
 
                 <tr>
                   {['Company', 'Requested Plan', 'Status', 'Request Date', 'Actions'].map((header) => (
@@ -153,7 +155,7 @@ const SubscriptionRequestsPage = () => {
                       <div className="flex space-x-2">
                         <button 
                           onClick={() => openDetails(request)}
-                          className="text-indigo-600 hover:bg-indigo-100 p-1 rounded-full"
+                          className="text-indigo-500 hover:bg-indigo-100 p-1 rounded-full"
                           title="Details"
                         >
                           <DetailsIcon className="h-5 w-5" />
@@ -190,7 +192,7 @@ const SubscriptionRequestsPage = () => {
         {selectedRequest && (
           <div className="fixed inset-0   bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
             <div className={`  bg-opacity-80  rounded-xl w-full max-w-2xl overflow-hidden ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
-              <div className="bg-indigo-600 text-white px-6 py-4 font-bold text-lg">
+              <div className="bg-indigo-500 text-white px-6 py-4 font-bold text-lg">
                 Request Details
               </div>
               <div className="p-6">
@@ -199,9 +201,10 @@ const SubscriptionRequestsPage = () => {
                     {selectedRequest.company_name?.charAt(0) || 'C'}
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold">
-                      {selectedRequest.company_name}
-                    </h2>
+                    <h2 className={`text-2xl font-bold ${theme === 'dark' ? '!text-amber-300' : '!text-indigo-700'}`}>
+  {selectedRequest.company_name}
+</h2>
+
                     <p className="text-gray-500">
                       Company ID: {selectedRequest.company}
                     </p>
@@ -218,7 +221,7 @@ const SubscriptionRequestsPage = () => {
                   <DetailCard 
                     title="Status"
                     value={selectedRequest.status}
-                    color="border-indigo-600"
+                    color="border-indigo-500"
                     status={selectedRequest.status}
                   />
                   
@@ -231,14 +234,14 @@ const SubscriptionRequestsPage = () => {
                   <DetailCard 
                     title="Request ID"
                     value={selectedRequest.id}
-                    color="border-indigo-600"
+                    color="border-indigo-500"
                   />
                 </div>
               </div>
               <div className={`px-6 py-3 flex justify-end${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
                 <button 
                   onClick={closeDetails}
-                  className="text-indigo-600 font-bold px-4 ml-140 py-2 rounded-lg hover:bg-indigo-50"
+                  className="text-indigo-500 font-bold px-4 ml-140 py-2 rounded-lg hover:bg-indigo-50"
                 >
                   Close
                 </button>
@@ -264,7 +267,7 @@ const SubscriptionRequestsPage = () => {
                 </button>
                 <button 
                   onClick={confirmAction} 
-                  className={`px-4 py-2 rounded-lg font-bold text-white ${confirmDialog.action === 'approve' ? 'bg-indigo-300 hover:bg-indigo-600' : 'bg-red-500 hover:bg-red-700'}`}
+                  className={`px-4 py-2 rounded-lg font-bold text-white ${confirmDialog.action === 'approve' ? 'bg-indigo-300 hover:bg-indigo-500' : 'bg-red-500 hover:bg-red-700'}`}
                 >
                   {confirmDialog.action === 'approve' ? 'Approve' : 'Reject'}
                 </button>

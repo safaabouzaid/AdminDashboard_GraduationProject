@@ -64,7 +64,7 @@ const Sidebar = () => {
 
 
         { icon: <BsShieldLock />, label: 'Policies', tab: 'policies' },
-        { icon: <FaRegBell />, label: 'Notifications', tab: 'notifications' },
+        //{ icon: <FaRegBell />, label: 'Notifications', tab: 'notifications' },
       ]
     },
     { 

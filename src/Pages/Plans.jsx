@@ -159,7 +159,7 @@ const AddPlan = () => {
                   value="none"
                   checked={form.candidate_suggestions === 'none'}
                   onChange={handleChange}
-                  className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                  className="w-4 h-4 text-indigo-500 focus:ring-indigo-500"
                 />
                 <span className={labelClasses}>No suggestions</span>
               </label>
@@ -170,7 +170,7 @@ const AddPlan = () => {
                   value="once"
                   checked={form.candidate_suggestions === 'once'}
                   onChange={handleChange}
-                  className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                  className="w-4 h-4 text-indigo-500 focus:ring-indigo-500"
                 />
                 <span className={labelClasses}>One-time suggestion</span>
               </label>
@@ -181,7 +181,7 @@ const AddPlan = () => {
                   value="always"
                   checked={form.candidate_suggestions === 'always'}
                   onChange={handleChange}
-                  className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                  className="w-4 h-4 text-indigo-500 focus:ring-indigo-500"
                 />
                 <span className={labelClasses}>Continuous suggestions</span>
               </label>
@@ -197,7 +197,7 @@ const AddPlan = () => {
             className={`px-6 py-3 rounded-lg font-medium shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
               loading
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-indigo-600 hover:bg-indigo-700 text-white focus:ring-indigo-500'
+                : 'bg-indigo-500 hover:bg-indigo-700 text-white focus:ring-indigo-500'
             } ${
               theme === "dark" ? "focus:ring-offset-gray-900" : "focus:ring-offset-white"
             }`}
