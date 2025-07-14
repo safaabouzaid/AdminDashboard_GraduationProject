@@ -316,13 +316,14 @@ const Dashboard = () => {
         </div>
         
 {/* Bar Chart for Job Categories */}
+{/* Pie Chart for Job Categories */}
 <div className={`p-6 rounded-xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
   <div
     className="flex justify-between items-center cursor-pointer"
-    onClick={() => toggleCard('barChart')}
+    onClick={() => toggleCard('pieChart')}
   >
     <h2 className="text-lg font-semibold">Job Category Breakdown</h2>
-    {expandedCards['barChart'] ? (
+    {expandedCards['pieChart'] ? (
       <ChevronUp className="text-gray-500" />
     ) : (
       <ChevronDown className="text-gray-500" />
@@ -331,37 +332,35 @@ const Dashboard = () => {
 
   <div className="h-80">
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart
-        data={[...pieData]
-          .sort((a, b) => b.value - a.value)
-          .slice(0, 20)
-        }
-        layout="vertical"
-        margin={{ top: 20, right: 30, left: 50, bottom: 20 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          type="number"
-          tick={{ fill: theme === 'dark' ? '#fff' : '#333' }}
-        />
-        <YAxis
-          type="category"
-          dataKey="name"
-          width={150}
-          tick={{ fill: theme === 'dark' ? '#fff' : '#333' }}
-        />
-        <Tooltip
+      <PieChart>
+        <Pie
+          data={[...pieData].sort((a, b) => b.value - a.value).slice(0, 5)}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius={100}
+          label
+          isAnimationActive={true}
+          animationBegin={0}
+          animationDuration={800}
+        >
+          {[...pieData].sort((a, b) => b.value - a.value).slice(0, 5).map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip 
           contentStyle={{
             background: theme === 'dark' ? '#333' : '#fff',
             borderColor: theme === 'dark' ? '#555' : '#ddd',
           }}
         />
-        <Bar dataKey="value" fill="#4ade80" />
-      </BarChart>
+        <Legend />
+      </PieChart>
     </ResponsiveContainer>
   </div>
 
-  {expandedCards['barChart'] && (
+  {expandedCards['pieChart'] && (
     <div className="mt-4 overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
@@ -371,22 +370,21 @@ const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {[...pieData]
-            .sort((a, b) => b.value - a.value)
-            .map((entry, index) => (
-              <tr
-                key={index}
-                className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
-              >
-                <td className="p-2">{entry.name}</td>
-                <td className="p-2 text-right">{entry.value}</td>
-              </tr>
-            ))}
+          {[...pieData].sort((a, b) => b.value - a.value).map((entry, index) => (
+            <tr
+              key={index}
+              className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
+            >
+              <td className="p-2">{entry.name}</td>
+              <td className="p-2 text-right">{entry.value}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
   )}
 </div>
+
 
 </div>
 

@@ -40,12 +40,12 @@ export const addAd = createAsyncThunk(
   }
 );
 
-export const deleteAd = createAsyncThunk(
-  'ads/deleteAd',
+export const suspendAd = createAsyncThunk(
+  'ads/suspendAd',
   async (adId, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`${API_URL}${adId}/`, { 
+      const response = await axios.post(`${API_URL}${adId}/`, null, { 
         headers: {
           Authorization: `Bearer ${token}`,
           'ngrok-skip-browser-warning': 'true',
@@ -54,11 +54,12 @@ export const deleteAd = createAsyncThunk(
       });
       return adId;
     } catch (error) {
-      console.log("Delete Ad Error:", error.response?.data || error.message);
-      return thunkAPI.rejectWithValue(error.response?.data || "Delete failed");
+      return thunkAPI.rejectWithValue(error.response?.data || "Suspend failed");
     }
   }
 );
+
+
 
 const adsSlice = createSlice({
   name: 'ads',
@@ -67,7 +68,6 @@ const adsSlice = createSlice({
     loading: false,
     error: null,
   },
-  
   extraReducers: (builder) => {
     builder
       .addCase(fetchAds.pending, (state) => {
@@ -88,18 +88,22 @@ const adsSlice = createSlice({
       .addCase(addAd.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(deleteAd.pending, (state) => {
-        state.loading = true;  
+      .addCase(suspendAd.pending, (state) => {
+        state.loading = true;
+        state.error = null;
       })
-      .addCase(deleteAd.fulfilled, (state, action) => {
+      .addCase(suspendAd.fulfilled, (state, action) => {
         state.loading = false;
-        state.ads = state.ads.filter((ad) => ad.id !== action.payload);
+        state.ads = state.ads.map(ad => 
+          ad.id === action.payload ? { ...ad, is_active: false } : ad
+        );
       })
-      .addCase(deleteAd.rejected, (state, action) => {
+      .addCase(suspendAd.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });      
+      });
   },
 });
+
 
 export default adsSlice.reducer;

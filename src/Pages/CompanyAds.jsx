@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAds, addAd, deleteAd } from "../redux/AdsSlice";
+import { fetchAds, addAd, suspendAd } from "../redux/AdsSlice";
 import { toast, ToastContainer } from 'react-toastify';
 import defaultLogo from "../assets/user1.jpeg";
 
@@ -56,7 +56,7 @@ const handleSubmit = async () => {
   }
 
   const payload = {
-    company_name: formData.company_name,
+    //company_name: "Forsa-Tech",
     title: formData.title,
     description: formData.description,
     ad_image: imageUrl,  
@@ -80,16 +80,17 @@ const handleSubmit = async () => {
     });
 };
 
-  const handleDelete = (adId) => {
-    dispatch(deleteAd(adId))
-      .unwrap()
-      .then(() => {
-        toast.success("Ad deleted successfully!");
-      })
-      .catch(() => {
-        toast.error("Failed to delete the ad.");
-      });
-  };
+  const handleSuspend = (adId) => {
+  dispatch(suspendAd(adId))
+    .unwrap()
+    .then(() => {
+      toast.success("Ad suspended successfully!");
+    })
+    .catch(() => {
+      toast.error("Failed to suspend the ad.");
+    });
+};
+
 
   const bgText = theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black';
   const inputBg = theme === 'dark' ? 'bg-gray-800 text-white placeholder-gray-400 border-gray-700' : 'bg-gray-100 text-black placeholder-gray-500 border-gray-300';
@@ -105,6 +106,7 @@ const handleSubmit = async () => {
       </h2>
 
       <div className="mb-6 flex flex-wrap gap-4 justify-center items-center">
+        {/*
   <input
     name="company_name"
     placeholder="Company Name"
@@ -112,6 +114,7 @@ const handleSubmit = async () => {
     onChange={handleChange}
     className={`border p-3 rounded-md flex-grow min-w-[200px] ${inputBg} focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 ease-in-out`}
   />
+  */}
   <input
     name="title"
     placeholder="Ad Title"
@@ -196,8 +199,9 @@ const handleSubmit = async () => {
                     <div>
                       <h3 className="text-xl font-semibold">{ad.title}</h3>
                       <p className={`mt-1 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                        {ad.company || ad.company_name}
-                      </p>
+  {ad.company || ad.company_name || "Forsa-Tech"}
+</p>
+
                     </div>
                   </div>
                   <span
@@ -213,17 +217,27 @@ const handleSubmit = async () => {
                   {ad.description}
                 </p>
 
-                <div className="flex justify-between items-center mt-4">
-                  <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {new Date(ad.created_at).toLocaleDateString()}
-                  </span>
-                  <button
-                    onClick={() => handleDelete(ad.id)}
-                    className="bg-red-600 text-white px-4 py-2 rounded-md shadow hover:bg-red-700 transition-colors duration-200"
-                  >
-                    Delete Ad
-                  </button>
-                </div>
+                <div className="flex justify-between items-center mt-4 space-x-2">
+  <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+    {new Date(ad.created_at).toLocaleDateString()}
+  </span>
+  <div>
+    <button
+  onClick={() => handleSuspend(ad.id)}
+  disabled={!ad.is_active}  
+  className={`px-4 py-2 rounded-md shadow transition-colors duration-200
+    ${ad.is_active 
+      ? 'bg-yellow-500 hover:bg-yellow-600 text-white cursor-pointer'
+      : 'bg-gray-400 text-gray-700 cursor-default opacity-70'
+    }
+  `}
+>
+  {ad.is_active ? 'Suspend' : 'Suspended'}
+</button>
+
+  </div>
+</div>
+
               </div>
             </li>
           ))
