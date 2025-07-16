@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardStats } from "../redux/dashboardStatsSlice";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { useNavigate } from "react-router-dom"; 
+
 
 const Dashboard = () => {
   const { theme } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   const { stats, loading } = useSelector((state) => state.dashboardStats);
   const [expandedCards, setExpandedCards] = useState({});
+  const navigate = useNavigate(); 
   
   const toggleCard = (cardId) => {
     setExpandedCards(prev => ({
@@ -22,6 +25,13 @@ const Dashboard = () => {
   const lineData = stats?.line_chart_data || [];
   const pieData = stats?.pie_chart_data || [];
   
+
+
+  const handleOpportunityClick = (opportunityName) => {
+    console.log("Clicked Opportunity:", opportunityName);
+    navigate(`/companies-by-opportunity/${encodeURIComponent(opportunityName)}`);
+  };
+
   const handleExportToExcel = () => {
     const reportData = {
       'Companies': stats?.num_companies || 0,
@@ -52,7 +62,7 @@ const Dashboard = () => {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
 
   return (
-    <div className={`p-6 ml-4 mr-4 min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-800'}`}>
+    <div className={`p-6 ml-4 mr-4 min-h-screen ${theme === 'dark' ? 'bg-gray-00 text-white' : 'bg-gray-50 text-gray-800'}`}>
       <div className="flex justify-end mb-4">
         <button
           onClick={handleExportToExcel}
@@ -315,7 +325,6 @@ const Dashboard = () => {
           </div>
         </div>
         
-{/* Bar Chart for Job Categories */}
 {/* Pie Chart for Job Categories */}
 <div className={`p-6 rounded-xl shadow-lg ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
   <div
@@ -370,16 +379,24 @@ const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {[...pieData].sort((a, b) => b.value - a.value).map((entry, index) => (
-            <tr
-              key={index}
-              className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
-            >
-              <td className="p-2">{entry.name}</td>
-              <td className="p-2 text-right">{entry.value}</td>
-            </tr>
-          ))}
-        </tbody>
+  {[...pieData].sort((a, b) => b.value - a.value).map((entry, index) => (
+    <tr
+      key={index}
+      className={`border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
+    >
+      <td className="p-2">
+        <button
+          onClick={() => handleOpportunityClick(entry.name)}
+          className="text-indigo-500 underline"
+        >
+          {entry.name}
+        </button>
+      </td>
+      <td className="p-2 text-right">{entry.value}</td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
     </div>
   )}

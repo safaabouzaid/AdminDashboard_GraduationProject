@@ -10,6 +10,8 @@ import DashboardLayout from "./components/DashboardLayout";
 import CompanyProfile from "./Pages/CompanyProfile";
 import ProtectedRoute from './ProtectedRoute';
 
+import CompaniesByOpportunity from "./Pages/CompaniesByOpportunity";
+
 const theme = createTheme({
   palette: {
     appBar: {
@@ -49,6 +51,17 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+  path="/companies-by-opportunity/:opportunityName"
+  element={
+    <ProtectedRoute>
+      <DashboardLayout>
+        <CompaniesByOpportunity />
+      </DashboardLayout>
+    </ProtectedRoute>
+  }
+/>
+
         </Routes>
       </BrowserRouter>
 

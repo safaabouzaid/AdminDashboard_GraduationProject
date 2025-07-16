@@ -88,9 +88,7 @@ const Login = () => {
 
             {error && <div className="text-red-600 text-sm">{error}</div>}
 
-            <div className="text-right text-sm">
-              <button className="text-purple-600 hover:underline">Forgot password?</button>
-            </div>
+            
 
             <div className="text-center text-xs text-gray-400 pt-10">
               <Link to="/Privacy" className="hover:underline">
