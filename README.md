@@ -34,5 +34,5 @@ The dashboard allows the **Platform Owner** to manage companies, subscription po
 ### 📥 Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/admin-dashboard.git
+git clone https://github.com/safaabouzaid/AdminDashboard_GraduationProject/
 cd admin-dashboard
